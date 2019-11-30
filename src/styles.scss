@@ -1,0 +1,86 @@
+html, body {
+  background-color: #efefef;
+  
+}
+
+a:hover {
+  text-decoration: none;
+  color: #494949;
+}
+
+.container {
+  max-width: 600px;
+}
+
+.login-form {
+  margin: 15px;
+}
+
+.post-form {
+  margin-bottom: 10px;
+}
+
+.login-form {
+  text-align: center; 
+}
+
+input {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+button {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-left: auto; 
+  margin-right: auto;
+}
+
+.nav-bar {
+  background-color: #24292e;
+  color: white;
+}
+
+.nav-bar a {
+  color: white;
+}
+
+.nav-bar a:hover {
+  color: #C0C0C0;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.drop-item {
+  margin: 3px;
+  margin-left: 8px;
+  margin-right: 0;
+  padding: 0;
+  font-size: 15px;
+}
+
+.login {
+  text-align: center;
+  margin-top: 20%;
+}
+
+.login-input {
+  width: 70%;
+  margin-left: auto; 
+  margin-right: auto;
+}
+
+.button {
+  background-color: #24292e;
+}

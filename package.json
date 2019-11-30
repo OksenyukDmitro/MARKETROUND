@@ -1,0 +1,101 @@
+{
+  "name": "bc-2019-10-15-vanilla-todos",
+  "version": "1.0.1",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "commit": "npx git-cz",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix",
+    "build": "webpack",
+    "start": "webpack-dev-server",
+    "release": "standard-version",
+    "release:major": "npm run release -- --release-as major",
+    "release:minor": "npm run release -- --release-as minor",
+    "release:patch": "npm run release -- --release-as patch",
+    "test": "jest ./src"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "7.6.4",
+    "@babel/plugin-proposal-class-properties": "7.5.5",
+    "@babel/plugin-transform-react-jsx": "7.3.0",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "7.6.3",
+    "@babel/preset-react": "7.6.3",
+    "@types/jest": "24.0.20",
+    "babel-eslint": "10.0.3",
+    "babel-loader": "8.0.6",
+    "copy-webpack-plugin": "5.0.4",
+    "css-loader": "3.2.0",
+    "cz-conventional-changelog": "3.0.2",
+    "dotenv-webpack": "^1.7.0",
+    "eslint": "6.6.0",
+    "eslint-config-airbnb": "18.0.1",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-jest": "23.0.2",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.16.0",
+    "eslint-plugin-react-hooks": "^2.2.0",
+    "html-loader": "0.5.5",
+    "html-webpack-plugin": "3.2.0",
+    "husky": "3.0.9",
+    "jest": "24.9.0",
+    "jest-cli": "24.9.0",
+    "jest-localstorage-mock": "2.4.0",
+    "jest-tobetype": "1.2.3",
+    "lint-staged": "9.4.2",
+    "node-sass": "4.13.0",
+    "sass-loader": "8.0.0",
+    "standard-version": "7.0.0",
+    "style-loader": "1.0.0",
+    "webpack": "4.41.2",
+    "webpack-cli": "3.3.9",
+    "webpack-dev-server": "3.9.0"
+  },
+  "dependencies": {
+    "@apollo/react-hooks": "^3.1.3",
+    "@babel/runtime": "^7.6.3",
+    "apollo-boost": "^0.4.4",
+    "bootstrap": "4.3.1",
+    "classnames": "^2.2.6",
+    "faker": "4.1.0",
+    "graphql": "^14.5.8",
+    "lodash": "4.17.15",
+    "md5": "2.2.1",
+    "moment": "^2.24.0",
+    "prop-types": "15.7.2",
+    "react": "16.11.0",
+    "react-confirm-alert": "^2.4.1",
+    "react-dom": "16.11.0",
+    "react-router-dom": "5.1.2",
+    "react-toastify": "^5.4.0",
+    "reactstrap": "8.1.1",
+    "uuid": "3.3.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "jest": {
+    "setupFiles": [
+      "jest-localstorage-mock"
+    ],
+    "setupFilesAfterEnv": [
+      "./src/setup-test.js"
+    ]
+  }
+}
