@@ -5,11 +5,12 @@ import UserModel from '../modules/users';
 import { ME_QUERY } from './useMe';
 
 const CREATE_ACCOUNT = gql`
-  mutation createAccount ($username: String! $password: String! $profile: UserProfileInput) {
+  mutation createAccount ($username: String! $password: String!   $email: String! $profile: UserProfileInput) {
     createAccount (
       input:{
         username: $username
         password: $password
+        email: $email
         profile: $profile
       }
     ) {
@@ -77,7 +78,9 @@ const useAuthHandlers = () => {
     client.cache.writeQuery({ query: ME_QUERY, data: { me: null } });
   }, [client]);
 
-  const createAccount = useCallback(async (username, password, email, profile) => {
+  const createAccount = useCallback(async ({
+    username, password, email, profile,
+  }) => {
     const { data: { createAccount: data } } = await createAccountMutate({
       variables: {
         username, password, email, profile,
