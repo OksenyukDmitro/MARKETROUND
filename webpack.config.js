@@ -44,8 +44,13 @@ const config = {
         }
       },
       {
+
+        test: /\.(eot|gif|otf|jpg|png|svg|ttf|woff)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: ['file-loader'],
+      },
+      {
         test: /\.html$/,
-        use: [ {
+        use: [{
           loader: 'html-loader',
           options: {
             minimize: true

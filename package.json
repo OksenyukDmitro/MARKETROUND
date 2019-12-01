@@ -61,6 +61,7 @@
     "bootstrap": "4.3.1",
     "classnames": "^2.2.6",
     "faker": "4.1.0",
+    "file-loader": "^5.0.2",
     "graphql": "^14.5.8",
     "lodash": "4.17.15",
     "md5": "2.2.1",

@@ -1,8 +1,6 @@
 export const ACCESS_TOKEN_STORAGE_KEY = '__access_token__';
 
 export class Users {
- 
-
   token = localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY);
 
   constructor() {
@@ -19,13 +17,12 @@ export class Users {
   }
 
   resume = () => {
-    this.token = localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY);   
+    this.token = localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY);
   }
-  
+
 
   logout = () => {
-    this.setToken({ token: '' });    
+    this.setToken({ token: '' });
   }
-
 }
 export default new Users();

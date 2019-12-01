@@ -1,6 +1,6 @@
 html, body {
   background-color: #efefef;
-  
+  height: 100%;
 }
 
 a:hover {
@@ -9,7 +9,7 @@ a:hover {
 }
 
 .container {
-  max-width: 600px;
+  max-width: 100%;
 }
 
 .login-form {
