@@ -7,26 +7,30 @@ import useInfiniteScroll from './useInfiniteScroll';
 export const PRODUCTS_QUERY = gql`
   query($offset: Int!, $limit: Int!) {
     products(offset: $offset, limit: $limit) @connection(key: "products") {
+      title
       _id
-  location
-  price
-  createdAt
-  categoryId
-  creatorId
-  description
-  category {
-    name
-  }
-  creator{
-    _id
-     username
-      profile{
-        avatar
-        firstName
-        lastName
+      location
+      price
+      createdAt
+      categoryId
+      creatorId
+      description
+      images{
+        url
       }
-    }
-    }
+      category {
+        name
+      }
+      creator{
+        _id
+        username
+          profile{
+            avatar
+            firstName
+            lastName
+          }
+        }
+        }
   }
 `;
 
