@@ -66,7 +66,6 @@ const useProducts = () => {
     setState({
       isFetchingMore: false,
     });
-    setIsFetching(false);
   }, [products.length, fetchMore, setIsFetching]);
 
   const setIsFetching = useInfiniteScroll(fetchMoreListItems);

@@ -12,20 +12,19 @@ import notImage from '../images/notImage.png';
 const Product = ({
   title, creator: owner, images, price,
 }) => {
-  console.log(images);
   const [me] = useMe();
   const { _id: ownerId } = owner;
   const image = images && images[0].url ? images[0].url : notImage;
 
   return (
     <div style={{
-      width: '200px',
+      width: '250px',
       float: 'left',
       marginLeft: 'auto',
       marginRight: 'auto',
       marginTop: '10px',
       marginBottom: '10px',
-      maxHeight: '200px',
+      maxHeight: '250px',
 
     }}
     >
@@ -36,7 +35,7 @@ const Product = ({
       >
         <Card style={{
           margin: '10px',
-          height: '200px',
+          height: '250px',
         }}
         >
           <span className="d-flex mb-0">
@@ -44,7 +43,7 @@ const Product = ({
             <CardBody className="pb-2 pl-2 pt-2">
               <span className="d-flex">
                 <Media
-                  style={{ width: '160px', height: '120px' }}
+                  style={{ width: '200px', height: '160px' }}
                   src={image}
                   alt="pic"
                 />
