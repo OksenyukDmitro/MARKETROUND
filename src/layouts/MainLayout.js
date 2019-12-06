@@ -12,6 +12,7 @@ import { faStore, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import { faComment, faStar } from '@fortawesome/free-regular-svg-icons';
 import logo from '../images/onlyLogo.png';
 
+// TODO: Fix logo load
 
 const MainLayout = ({ children }) => (
   <div>

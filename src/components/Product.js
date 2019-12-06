@@ -5,20 +5,17 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import useMe from '../hooks/useMe';
 import routes from '../router/routes';
 import notImage from '../images/notImage.png';
 
 const Product = ({
-  title, creator: owner, images, price,
+  _id, title, images, price,
 }) => {
-  const [me] = useMe();
-  const { _id: ownerId } = owner;
   const image = images && images[0].url ? images[0].url : notImage;
 
   return (
     <div style={{
-      width: '250px',
+      width: '320px',
       float: 'left',
       marginLeft: 'auto',
       marginRight: 'auto',
@@ -30,7 +27,7 @@ const Product = ({
     >
       <Link
 
-        to={me._id === ownerId ? `${routes.profile}` : `${routes.profile}/${owner.username}`}
+        to={`${routes.product}/${_id}`}
         className="mt-2 ml-2"
       >
         <Card style={{
@@ -40,10 +37,10 @@ const Product = ({
         >
           <span className="d-flex mb-0">
 
-            <CardBody className="pb-2 pl-2 pt-2">
+            <CardBody className="pb-2 pl-2 pt-2" style={{ paddingRight: '8px' }}>
               <span className="d-flex">
                 <Media
-                  style={{ width: '200px', height: '160px' }}
+                  style={{ width: '280px', height: '160px' }}
                   src={image}
                   alt="pic"
                 />
