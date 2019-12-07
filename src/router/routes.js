@@ -5,6 +5,7 @@ const routes = {
   forgotPassword: '/forgot-password',
   product: '/product',
   productId: '/product/:_id',
+  createProduct: '/create-product',
 
 };
 export default routes;

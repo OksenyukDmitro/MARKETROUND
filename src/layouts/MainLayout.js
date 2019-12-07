@@ -7,10 +7,12 @@ import {
   Media,
   Button,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStore, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import { faComment, faStar } from '@fortawesome/free-regular-svg-icons';
 import logo from '../images/onlyLogo.png';
+import routes from '../router/routes';
 
 // TODO: Fix logo load
 
@@ -22,11 +24,12 @@ const MainLayout = ({ children }) => (
       expand="md"
       style={{
         backgroundColor: 'white',
+        flexDirection: 'row-reverse',
       }}
     >
-      <NavbarBrand tag="span">
-        Ky
-      </NavbarBrand>
+      <Link to={routes.createProduct}>
+        <Button>Sell</Button>
+      </Link>
       <NavbarToggler className="m-2" />
     </Navbar>
     <Container>
@@ -41,20 +44,36 @@ const MainLayout = ({ children }) => (
         marginTop: '-65px',
         backgroundColor: 'white',
         display: 'flow-root',
+        top: '76px',
       }}
     >
-
       <div>
         <NavbarBrand tag="span">
-          <Media
-            src={logo}
-            alt="pic"
-            style={{
-              width: ' 62px',
-              marginLeft: '-14px',
-              marginTop: '-8px',
-            }}
-          />
+          <Link
+            to={routes.home}
+            className="mt-2 ml-2"
+          >
+            <Button
+              className="bg-transparent border-0"
+              style={{
+                margin: '0px',
+                marginLeft: '-12px',
+                marginTop: '-5px',
+                width: ' 62px',
+                height: ' 58px',
+              }}
+            >
+              <Media
+                src={logo}
+                alt="pic"
+                style={{
+                  width: ' 62px',
+                  marginLeft: '-20px',
+                  marginTop: '-8px',
+                }}
+              />
+            </Button>
+          </Link>
           <br />
           <Button
             className="bg-transparent border-0"

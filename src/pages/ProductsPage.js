@@ -7,7 +7,6 @@ const ProductsPage = () => {
   const {
     products, loading, isFetchMore: isFetchingMore,
   } = useProducts();
-  console.log(products);
   if (loading && products.length === 0) return <Spinner />;
   return (
     <div style={{ marginLeft: '13%', marginRight: 'auto' }}>
