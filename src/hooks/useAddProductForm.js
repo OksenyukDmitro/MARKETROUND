@@ -1,5 +1,6 @@
 import { useReducer, useCallback } from 'react';
 import useProductHandlers from './useProductHandlers';
+import Uploader from '../modules/uploader';
 
 const reduce = (state, action) => {
   switch (action.type) {
@@ -20,8 +21,10 @@ const useAddProductForm = (onSuccess) => {
     description: '',
     price: 0,
     categoryName: '',
-    photos: '',
+    photos: [],
     err: { active: false, msg: '' },
+    loading: false,
+    uploadingImage: false,
   });
 
   const { addProduct } = useProductHandlers();
@@ -62,7 +65,21 @@ const useAddProductForm = (onSuccess) => {
     const { name, value } = e.target;
     dispatch({ type: 'change', name, value });
   }, []);
-  return [state, handleSubmit, handleChange];
+
+  const handleChangeImages = useCallback(async (e) => {
+    e.preventDefault();
+    const newImage = e.target.files[0];
+    dispatch({ type: 'change', name: 'uploadingImage', value: true });
+    const url = await Uploader.upload(newImage);
+    dispatch({ type: 'change', name: 'uploadingImage', value: false });
+    const images = state.photos;
+    images.push(url);
+    images.push(url);
+
+    dispatch({ type: 'change', name: 'name', value: images });
+  }, [state.photos]);
+
+  return [state, handleSubmit, handleChange, handleChangeImages];
 };
 
 export default useAddProductForm;

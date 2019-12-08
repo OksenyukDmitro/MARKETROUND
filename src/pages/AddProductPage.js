@@ -1,11 +1,12 @@
 import React from 'react';
 import {
-  Input, Form, Alert, Button, Label,
+  Input, Form, Alert, Button, Label, Spinner,
 } from 'reactstrap';
 import { toast } from 'react-toastify';
 import useAddProductForm from '../hooks/useAddProductForm';
 import category from '../category';
 import routes from '../router/routes';
+import ImageUpload from '../components/ImageUpload';
 
 const AddProductPage = (props) => {
   const { history } = props;
@@ -14,7 +15,7 @@ const AddProductPage = (props) => {
 
     history.push(`${routes.product}/${_id}`);
   }, [history]);
-  const [state, handleSubmit, handleChange] = useAddProductForm(onSuccess);
+  const [state, handleSubmit, handleChange, handleChangeImages] = useAddProductForm(onSuccess);
 
   const {
     title,
@@ -22,8 +23,12 @@ const AddProductPage = (props) => {
     description,
     price,
     err,
+    photos,
+    loading,
+    uploadingImage,
   } = state;
-    // if (loading) return <Spinner />;
+  if (loading) return <Spinner />;
+
   return (
 
     <div
@@ -81,8 +86,6 @@ const AddProductPage = (props) => {
             {category.map((ctg) => (
               <option>{ctg}</option>
             ))}
-
-
           </Input>
           <Label for="price">Price</Label>
           <Input
@@ -94,12 +97,14 @@ const AddProductPage = (props) => {
             value={price}
             onChange={handleChange}
           />
+          <ImageUpload photos={photos} onChange={handleChangeImages} />
+          {uploadingImage ? <Spinner /> : null}
           <Button
             className="button"
             type="submit"
             disabled={!(title && description && price)}
           >
-                        Create
+            Create
           </Button>
 
         </div>

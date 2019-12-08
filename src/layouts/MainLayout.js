@@ -15,6 +15,7 @@ import logo from '../images/onlyLogo.png';
 import routes from '../router/routes';
 
 // TODO: Fix logo load
+// TODO: Fix margin in top while scroll
 
 const MainLayout = ({ children }) => (
   <div>
