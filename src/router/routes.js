@@ -6,6 +6,8 @@ const routes = {
   product: '/product',
   productId: '/product/:_id',
   createProduct: '/create-product',
+  chat: '/chat/:id',
+  chats: '/chat',
 
 };
 export default routes;

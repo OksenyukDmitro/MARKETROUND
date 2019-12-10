@@ -35,6 +35,7 @@ const ADD_PRODUCT = gql`
 
 const useProductHandlers = () => {
   const [addProductMutate] = useMutation(ADD_PRODUCT);
+
   const addProduct = useCallback(async ({
     title,
     location,

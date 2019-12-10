@@ -88,16 +88,18 @@ const MainLayout = ({ children }) => (
             <p style={{ color: 'black' }}> Wish</p>
           </Button>
           <br />
-          <Button
-            className="bg-transparent border-0"
-            style={{
-              margin: '0px',
-              marginLeft: '-16px',
-            }}
-          >
-            <FontAwesomeIcon className="fa-3x" icon={faComment} color="#6B7BF7" />
-            <p style={{ color: 'black' }}> Chats</p>
-          </Button>
+          <Link to={routes.chats}>
+            <Button
+              className="bg-transparent border-0"
+              style={{
+                margin: '0px',
+                marginLeft: '-16px',
+              }}
+            >
+              <FontAwesomeIcon className="fa-3x" icon={faComment} color="#6B7BF7" />
+              <p style={{ color: 'black' }}> Chats</p>
+            </Button>
+          </Link>
           <br />
           <Button
             className="bg-transparent border-0"

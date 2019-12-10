@@ -8,6 +8,7 @@ import MainLayout from '../layouts/MainLayout';
 import ProductsPage from '../pages/ProductsPage';
 import ProductPage from '../pages/ProductPage';
 import AddProductPage from '../pages/AddProductPage';
+import ChatsPage from '../pages/ChatsPage';
 import routes from './routes';
 
 const AppRouter = () => (
@@ -27,6 +28,17 @@ const AppRouter = () => (
         path={routes.home}
         render={(props) => <ProductsPage {...props} />}
       />
+      <Route
+        exact
+        path={routes.chats}
+        render={(props) => <ChatsPage {...props} />}
+      />
+      <Route
+        exact
+        path={routes.chat}
+        render={(props) => <ChatsPage {...props} />}
+      />
+
       <Redirect from={routes.login} to={routes.home} exact />
       <Redirect from={routes.signUp} to={routes.home} exact />
     </Switch>
