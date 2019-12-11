@@ -17,9 +17,9 @@ const cache = new CellMeasurerCache({
 });
 
 const Chat = ({ match }) => {
-  const [chat] = useMessages(match.params.id);
+  const [chat, addMessage, body, setBody] = useMessages(match.params.id);
   // const [me, loading] = useMe();
-  console.log(chat);
+  console.log(setBody);
 
   if (!chat) {
     return <Spinner />;
@@ -28,15 +28,13 @@ const Chat = ({ match }) => {
     messages,
     interlocutor,
   } = chat;
-  const isViewers = [];
-  messages.forEach(() => isViewers.push(Math.round(Math.random())));
 
   function renderRow({
     parent, index, key, style,
   }) {
     const time = moment(messages[index].createdAt, 'x').fromNow();
     // const isViewer = me && messages[index].createdBy === me._id;
-    const isViewer = isViewers[index];
+    const isViewer = index % 2;
     return (
       <CellMeasurer
         key={key}
@@ -184,8 +182,9 @@ const Chat = ({ match }) => {
             flexGrow: 2,
             border: 'none',
           }}
-          // value={text}
-          // onChange={(evt) => setText(evt.target.value)}
+          type="text"
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
           placeholder="Type your message her"
         />
         <button
@@ -195,10 +194,10 @@ const Chat = ({ match }) => {
             color: 'white',
             marginRight: '56px',
           }}
-          // onClick={sendMessage}
+          onClick={() => addMessage()}
           type="button"
         >
-                    SEND
+          SEND
         </button>
       </div>
     </div>

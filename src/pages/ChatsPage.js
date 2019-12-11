@@ -33,7 +33,7 @@ const ChatsPage = (props) => {
           {data.map((i) => (
             <button
               style={{
-                padding: '0px',               
+                padding: '0px',
                 background: i._id === match.params._id ? 'rgba(152, 255, 143, 0.3)' : 'white',
                 border: `1px solid  ${colors.main}`,
                 marginBottom: '0px',
