@@ -7,15 +7,18 @@ import {
 import { Link } from 'react-router-dom';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import useProduct from '../hooks/useProduct';
+import useChatHandlers from '../hooks/useChatHandlers';
 import Product from '../components/Product';
 import routes from '../router/routes';
 import notImage from '../images/notImage.png';
 
 const ProductPage = (props) => {
-  const { match: { params: { _id } } } = props;
+  const { match: { params: { _id } }, history } = props;
   const {
-    product, loading,
+    product, loading, lastUserProducts, userProductsLoading,
   } = useProduct(_id);
+  const [handleCreateChat] = useChatHandlers(history);
+
   if (!product && loading) return <Spinner />;
   if (product && product.length === 0) return <Spinner />;
 
@@ -96,7 +99,12 @@ const ProductPage = (props) => {
       >
         <CardBody className="mt-2 ml-2 pb-2 pl-2 pt-2" style={{ paddingRight: '0px', maxWidth: '300px' }}>
           <h3>{price}</h3>
-          <Button color="primary" style={{ width: '100%' }}> Start Chat </Button>
+          <Button
+            onClick={() => handleCreateChat(_id)}
+            color="primary"
+            style={{ width: '100%' }}
+          > Start Chat
+          </Button>
           <br />
           <Button color="primary" style={{ width: '100%' }}> Add to wish list  </Button>
           <p>Status</p>
@@ -155,21 +163,14 @@ const ProductPage = (props) => {
         }}
         >
           <CardBody style={{ padding: '0px' }}>
-            <Product
-              key={product._id}
 
-              {...product}
-            />
-            <Product
-              key={product._id}
-
-              {...product}
-            />
-            <Product
-              key={product._id}
-
-              {...product}
-            />
+            {userProductsLoading ? <Spinner />
+              : lastUserProducts.map((lastProduct) => (
+                <Product
+                  key={lastProduct._id}
+                  {...lastProduct}
+                />
+              ))}
           </CardBody>
         </Card>
       </div>

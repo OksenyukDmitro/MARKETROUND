@@ -46,17 +46,17 @@ const Chat = ({ match }) => {
         <div style={style} className="row">
           <div
             style={{
-
               padding: '8px',
+              paddingTop: ' 0px',
               alignSelf: 'flex-end',
               maxWidth: '220px',
               width: 'fit-content',
-              // color: black;
               margin: '4px',
+              marginTop: '8px',
               marginLeft: isViewer ? 'auto' : '0px',
-              marginRight: isViewer ? '0.9em' : 'auto',
-              paddingRight: isViewer ? '8px' : '0px',
-
+              marginRight: isViewer ? '0px' : 'auto',
+              paddingRight: '0px',
+              paddingLeft: isViewer ? '0px' : '20px',
             }}
           >
             <div
