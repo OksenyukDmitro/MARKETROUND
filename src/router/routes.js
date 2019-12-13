@@ -8,6 +8,8 @@ const routes = {
   createProduct: '/create-product',
   chat: '/chat/:id',
   chats: '/chat',
-
+  profile: '/profile',
+  profileId: '/profile/:username',
+  selling: '/selling',
 };
 export default routes;

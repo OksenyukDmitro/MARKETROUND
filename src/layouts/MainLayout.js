@@ -101,27 +101,31 @@ const MainLayout = ({ children }) => (
             </Button>
           </Link>
           <br />
-          <Button
-            className="bg-transparent border-0"
-            style={{
-              margin: '0px',
-              marginLeft: '-23px',
-            }}
-          >
-            <FontAwesomeIcon className="fa-3x" icon={faStore} color="#6B7BF7" />
-            <p style={{ color: 'black' }}> Selling</p>
-          </Button>
+          <Link to={routes.selling}>
+            <Button
+              className="bg-transparent border-0"
+              style={{
+                margin: '0px',
+                marginLeft: '-23px',
+              }}
+            >
+              <FontAwesomeIcon className="fa-3x" icon={faStore} color="#6B7BF7" />
+              <p style={{ color: 'black' }}> Selling</p>
+            </Button>
+          </Link>
           <br />
-          <Button
-            className="bg-transparent border-0"
-            style={{
-              margin: '0px',
-              marginLeft: '-16px',
-            }}
-          >
-            <FontAwesomeIcon className="fa-3x" icon={faUserTie} color="#6B7BF7" />
-            <p style={{ color: 'black' }}> Profile</p>
-          </Button>
+          <Link to={routes.profile}>
+            <Button
+              className="bg-transparent border-0"
+              style={{
+                margin: '0px',
+                marginLeft: '-16px',
+              }}
+            >
+              <FontAwesomeIcon className="fa-3x" icon={faUserTie} color="#6B7BF7" />
+              <p style={{ color: 'black' }}> Profile</p>
+            </Button>
+          </Link>
         </NavbarBrand>
       </div>
     </Navbar>

@@ -7,16 +7,20 @@ import {
 import { Link } from 'react-router-dom';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import useProduct from '../hooks/useProduct';
+import useUserProducts from '../hooks/useUserProducts';
 import useChatHandlers from '../hooks/useChatHandlers';
 import Product from '../components/Product';
 import routes from '../router/routes';
 import notImage from '../images/notImage.png';
+import useMe from '../hooks/useMe';
 
 const ProductPage = (props) => {
   const { match: { params: { _id } }, history } = props;
-  const {
-    product, loading, lastUserProducts, userProductsLoading,
-  } = useProduct(_id);
+
+  const { product, loading } = useProduct(_id);
+  const { userProducts, userProductsLoading } = useUserProducts(product
+    ? product.creator.username : null);
+  const [me] = useMe();
   const [handleCreateChat] = useChatHandlers(history);
 
   if (!product && loading) return <Spinner />;
@@ -26,6 +30,7 @@ const ProductPage = (props) => {
     title, description, images, price,
   } = product;
   const { firstName, lastName, avatar } = product.creator.profile;
+  const { _id: ownerId, username: ownerUsername } = product.creator;
 
   const image = images && images[0].url ? images[0].url : notImage;
 
@@ -123,8 +128,7 @@ const ProductPage = (props) => {
       }}
       >
         <Link
-
-          to={`${routes.product}/${_id}`}
+          to={me._id === ownerId ? `${routes.profile}` : `${routes.profile}/${ownerUsername}`}
           className="mt-2 ml-2"
         >
 
@@ -165,10 +169,10 @@ const ProductPage = (props) => {
           <CardBody style={{ padding: '0px' }}>
 
             {userProductsLoading ? <Spinner />
-              : lastUserProducts.map((lastProduct) => (
+              : userProducts.map((userProduct) => (
                 <Product
-                  key={lastProduct._id}
-                  {...lastProduct}
+                  key={userProduct._id}
+                  {...userProduct}
                 />
               ))}
           </CardBody>

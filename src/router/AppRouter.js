@@ -9,7 +9,10 @@ import ProductsPage from '../pages/ProductsPage';
 import ProductPage from '../pages/ProductPage';
 import AddProductPage from '../pages/AddProductPage';
 import ChatsPage from '../pages/ChatsPage';
+import UserProfilePage from '../pages/UserProfilePage';
+import UserPage from '../pages/UserPage';
 import routes from './routes';
+import SellingPage from '../pages/SellingPage';
 
 const AppRouter = () => (
   <MainLayout>
@@ -37,6 +40,21 @@ const AppRouter = () => (
         exact
         path={routes.chat}
         render={(props) => <ChatsPage {...props} />}
+      />
+      <Route
+        path={routes.profile}
+        exact
+        render={(props) => <UserProfilePage {...props} />}
+      />
+      <Route
+        path={routes.profileId}
+        exact
+        render={(props) => <UserPage {...props} />}
+      />
+      <Route
+        path={routes.selling}
+        exact
+        render={(props) => <SellingPage {...props} />}
       />
 
       <Redirect from={routes.login} to={routes.home} exact />
