@@ -4,6 +4,8 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import useLoginForm from '../hooks/useLoginForm';
 import routes from '../router/routes';
 import logo from '../images/3.png';
@@ -16,11 +18,23 @@ const LoginForm = (props) => {
     toast.success(`Welcome ${user.username}!`);
     history.push(routes.home);
   }, [history]);
-  const [state, handleSubmit, handleChange] = useLoginForm({ isLogin, onSuccess });
-
+  const [state, handleSubmit] = useLoginForm({ isLogin, onSuccess });
+  const formik = useFormik({
+    initialValues: state,
+    validationSchema: Yup.object({
+      username: Yup.string()
+        .max(15, 'Must be 15 characters or less')
+        .required('Required'),
+      password: Yup.string()
+        .max(20, 'Must be 20 characters or less')
+        .min(3, 'Must be 3 characters or more')
+        .required('Required'),
+    }),
+    onSubmit: (values) => handleSubmit(values),
+  });
   const {
-    username, password, errLogin,
-  } = state;
+    username, password,
+  } = formik.values;
 
   return (
     <div>
@@ -37,39 +51,55 @@ const LoginForm = (props) => {
           height: '86vh',
         }}
       >
-        <Form className="flex-center " onSubmit={handleSubmit}>
+        <Form className="flex-center " onSubmit={formik.handleSubmit}>
           <div className="">
-            <Alert color="danger" isOpen={errLogin.active}>
-              {errLogin.msg}
-            </Alert>
+
             <Input
               className="login-input"
               type="text"
               name="username"
               placeholder="Username"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               value={username}
-              onChange={handleChange}
             />
+            <Alert
+              className="login-input font-weight-normal"
+              color="danger"
+              isOpen={Boolean(formik.touched.username && formik.errors.username)}
+            >
+              {formik.errors.username}
+            </Alert>
+
             <Input
               className="login-input"
               type="password"
               name="password"
               placeholder="password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               value={password}
-              onChange={handleChange}
             />
+            <Alert
+              className="login-input"
+              color="danger"
+              isOpen={Boolean(formik.touched.password && formik.errors.password)}
+            >
+              {formik.errors.password}
+            </Alert>
+
             <Button
               className="button"
               type="submit"
-              disabled={!(username && password)}
+              disabled={Boolean(formik.errors.password || formik.errors.username)}
             >
               Log In
             </Button>
             <div>
               <div>
-                  Don&apos;t have an account? <Link to={routes.signUp}>Sign up</Link>
+                Don&apos;t have an account? <Link to={routes.signUp}>Sign up</Link>
                 <br />
-                  Forgot password? <Link to={routes.forgotPassword}>Reset password</Link>
+                Forgot password? <Link to={routes.forgotPassword}>Reset password</Link>
               </div>
             </div>
           </div>

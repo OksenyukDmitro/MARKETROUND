@@ -4,6 +4,8 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import useLoginForm from '../hooks/useLoginForm';
 import routes from '../router/routes';
 import logo from '../images/3.png';
@@ -17,12 +19,35 @@ const CreateAccountForm = (props) => {
     toast.success(`Welcome ${user.username}!`);
     history.push(routes.home);
   }, [history]);
-  const [state, handleSubmit, handleChange] = useLoginForm({ isLogin, onSuccess });
+  const [state, handleSubmit] = useLoginForm({ isLogin, onSuccess });
+  const formik = useFormik({
+    initialValues: state,
+    validationSchema: Yup.object({
+      username: Yup.string()
+        .max(15, 'Must be 15 characters or less')
+        .required('Required'),
+      firstName: Yup.string()
+        .max(15, 'Must be 15 characters or less')
+        .required('Required'),
+      lastName: Yup.string()
+        .max(15, 'Must be 15 characters or less')
+        .required('Required'),
+      email: Yup.string()
+        .email('Invalid email address')
+        .required('Required'),
+      password: Yup.string()
+        .max(20, 'Must be 20 characters or less')
+        .min(3, 'Must be 3 characters or more')
+        .required('Required'),
+    }),
+    onSubmit: (values) => handleSubmit(values),
+  });
 
   const {
-    username, password, firstName, lastName, email, errLogin,
-  } = state;
-
+    username, password, firstName, lastName, email,
+  } = formik.values;
+  const disabled = Boolean(formik.errors.password || formik.errors.username
+    || formik.errors.firstName || formik.errors.lastName || formik.errors.email);
   return (
     <div>
 
@@ -40,60 +65,96 @@ const CreateAccountForm = (props) => {
       >
         <Form onSubmit={handleSubmit}>
           <div className="login-form">
-            <Alert color="danger" isOpen={errLogin.active}>
-              {errLogin.msg}
-            </Alert>
             <Input
               className="login-input"
               type="text"
               name="username"
               placeholder="Username"
               value={username}
-              onChange={handleChange}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
-
+            <Alert
+              className="login-input font-weight-normal"
+              color="danger"
+              isOpen={Boolean(formik.touched.username && formik.errors.username)}
+            >
+              {formik.errors.username}
+            </Alert>
             <Input
               className="login-input"
               type="text"
               name="firstName"
               placeholder="firstName"
               value={firstName}
-              onChange={handleChange}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
+            <Alert
+              className="login-input font-weight-normal"
+              color="danger"
+              isOpen={Boolean(formik.touched.firstName && formik.errors.firstName)}
+            >
+              {formik.errors.firstName}
+            </Alert>
             <Input
               className="login-input"
               type="text"
               name="lastName"
               placeholder="lastName"
               value={lastName}
-              onChange={handleChange}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
+            <Alert
+              className="login-input font-weight-normal"
+              color="danger"
+              isOpen={Boolean(formik.touched.lastName && formik.errors.lastName)}
+            >
+              {formik.errors.lastName}
+            </Alert>
             <Input
               className="login-input"
               type="text"
               name="email"
               placeholder="email"
               value={email}
-              onChange={handleChange}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
+            <Alert
+              className="login-input font-weight-normal"
+              color="danger"
+              isOpen={Boolean(formik.touched.email && formik.errors.email)}
+            >
+              {formik.errors.email}
+            </Alert>
             <Input
               className="login-input"
               type="password"
               name="password"
               placeholder="password"
               value={password}
-              onChange={handleChange}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
             />
+            <Alert
+              className="login-input font-weight-normal"
+              color="danger"
+              isOpen={Boolean(formik.touched.password && formik.errors.password)}
+            >
+              {formik.errors.password}
+            </Alert>
             <Button
               className="button"
               type="submit"
-              disabled={!(username && password)}
+              disabled={disabled}
             >
-                            Sign Up
+              Sign Up
             </Button>
             <div>
               <div>
-                                    Already have an account? <Link to={routes.login}>Login</Link>
+                Already have an account? <Link to={routes.login}>Login</Link>
               </div>
             </div>
           </div>
