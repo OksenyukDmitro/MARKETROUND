@@ -2,6 +2,8 @@ import React from 'react';
 import moment from 'moment';
 import { Route } from 'react-router-dom';
 import { Spinner } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInbox } from '@fortawesome/free-solid-svg-icons';
 import Chat from './ChatPage';
 import routes from '../router/routes';
 import useChatsPage from '../hooks/useChatsPage';
@@ -18,8 +20,6 @@ const ChatsPage = (props) => {
         flexDirection: 'row',
         overflow: 'hidden',
         height: 'calc(100vh - 88px)',
-        background: 'white',
-
       }}
       >
         <aside style={{
@@ -28,6 +28,7 @@ const ChatsPage = (props) => {
           flex: '1 1',
           overflow: 'auto',
           marginLeft: '63px',
+          background: 'white',
         }}
         >
           {data.map((i) => (
@@ -49,9 +50,7 @@ const ChatsPage = (props) => {
                   cursor: 'pointer',
                   background: i._id === match.params._id ? 'rgba(152, 255, 143, 0.3)' : 'white',
                 }}
-
               >
-
                 {i.product && i.product.title
                   ? i.product.title
                   : 'Product'}
@@ -83,13 +82,41 @@ const ChatsPage = (props) => {
               </div>
             </button>
           ))}
+          {data.length === 0
+            ? <div style={{
+              position: 'absolute',
+              background: 'white',
+              top: '45%',
+              left: '45%',
+            }}
+            >
+              <FontAwesomeIcon
+                style={{
+                  marginLeft: '33%',
+                }}
+                className="fa-3x"
+                icon={faInbox}
+                color="#6B7BF7"
+              />
+              <p>No messages for you... </p>
+              </div> : null}
         </aside>
         <div style={{
           display: 'flex',
           flex: '2',
           background: 'white',
+
         }}
         >
+          {match.path === routes.chats && data.length > 0 ? <div style={{
+            display: 'flex',
+            background: 'white',
+            flex: 'none',
+            margin: 'auto',
+          }}
+          >
+            <p>Selected chat...</p>
+          </div> : null}
           <Route exact path={routes.chat} component={Chat} />
         </div>
       </div>

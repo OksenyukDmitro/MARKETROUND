@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Form, Input, Button, Alert,
+  Form, Input, Button, Alert, Label,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -49,7 +49,14 @@ const LoginForm = (props) => {
       >
         <Form className="flex-center " onSubmit={formik.handleSubmit}>
           <div className="">
-
+            <Label
+              sm={3}
+              style={{
+                display: 'unset', marginLeft: '15%', padding: '0px',
+              }}
+            >
+              Username
+            </Label>
             <Input
               className="login-input"
               type="text"
@@ -66,7 +73,27 @@ const LoginForm = (props) => {
             >
               {formik.errors.username}
             </Alert>
-
+            <Label
+              sm={3}
+              style={{
+                display: 'unset', marginLeft: '15%', padding: '0px', marginTop: '5px',
+              }}
+            >
+              Password
+            </Label>
+            <Label
+              sm={3}
+              style={{
+                display: 'unset',
+                marginLeft: '15px',
+                padding: '0px',
+                marginTop: '5px',
+                fontSize: '1em',
+                color: 'grey',
+              }}
+            >
+              3 or more characters
+            </Label>
             <Input
               className="login-input"
               type="password"
@@ -88,15 +115,14 @@ const LoginForm = (props) => {
               className="button"
               type="submit"
               disabled={Boolean(formik.errors.password || formik.errors.username)}
+              style={{ marginLeft: '15%' }}
             >
               Log In
             </Button>
-            <div>
-              <div>
-                Don&apos;t have an account? <Link to={routes.signUp}>Sign up</Link>
-                <br />
-                Forgot password? <Link to={routes.forgotPassword}>Reset password</Link>
-              </div>
+            <div style={{ marginLeft: '15%' }}>
+              Don&apos;t have an account? <Link to={routes.signUp}>Sign up</Link>
+              <br />
+              Forgot password? <Link to={routes.forgotPassword}>Reset password</Link>
             </div>
           </div>
         </Form>

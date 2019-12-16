@@ -47,7 +47,7 @@ const MainLayout = ({ children }) => {
           width: '70px',
           height: '100%',
           position: 'fixed',
-          marginTop: '-65px',
+          marginTop: '-75px',
           backgroundColor: 'white',
           display: 'flow-root',
           top: '76px',

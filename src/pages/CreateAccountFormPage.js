@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Form, Input, Button, Alert,
+  Form, Input, Button, Alert, Label,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -42,7 +42,7 @@ const CreateAccountForm = (props) => {
 
       <img src={logo} alt="alt" style={{ width: '50%', height: 'fit-content' }} />
       <div
-        className="flex-center"
+        className="flex-start"
         style={{
           float: 'right',
           minWidth: '30%',
@@ -53,7 +53,15 @@ const CreateAccountForm = (props) => {
         }}
       >
         <Form onSubmit={handleSubmit}>
-          <div className="login-form">
+          <div>
+            <Label
+              sm={3}
+              style={{
+                display: 'unset', marginLeft: '15%', padding: '0px', marginTop: '5px',
+              }}
+            >
+              Username
+            </Label>
             <Input
               className="login-input"
               type="text"
@@ -70,11 +78,19 @@ const CreateAccountForm = (props) => {
             >
               {formik.errors.username}
             </Alert>
+            <Label
+              sm={3}
+              style={{
+                display: 'unset', marginLeft: '15%', padding: '0px', marginTop: '5px',
+              }}
+            >
+              First Name
+            </Label>
             <Input
               className="login-input"
               type="text"
               name="firstName"
-              placeholder="firstName"
+              placeholder=" First Name"
               value={firstName}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -86,11 +102,19 @@ const CreateAccountForm = (props) => {
             >
               {formik.errors.firstName}
             </Alert>
+            <Label
+              sm={3}
+              style={{
+                display: 'unset', marginLeft: '15%', padding: '0px', marginTop: '5px',
+              }}
+            >
+              Last Name
+            </Label>
             <Input
               className="login-input"
               type="text"
               name="lastName"
-              placeholder="lastName"
+              placeholder="Last Name"
               value={lastName}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -102,6 +126,14 @@ const CreateAccountForm = (props) => {
             >
               {formik.errors.lastName}
             </Alert>
+            <Label
+              sm={3}
+              style={{
+                display: 'unset', marginLeft: '15%', padding: '0px', marginTop: '5px',
+              }}
+            >
+              Email
+            </Label>
             <Input
               className="login-input"
               type="text"
@@ -118,6 +150,27 @@ const CreateAccountForm = (props) => {
             >
               {formik.errors.email}
             </Alert>
+            <Label
+              sm={3}
+              style={{
+                display: 'unset', marginLeft: '15%', padding: '0px', marginTop: '5px',
+              }}
+            >
+              Password
+            </Label>
+            <Label
+              sm={3}
+              style={{
+                display: 'unset',
+                marginLeft: '15px',
+                padding: '0px',
+                marginTop: '5px',
+                fontSize: '1em',
+                color: 'grey',
+              }}
+            >
+              3 or more characters
+            </Label>
             <Input
               className="login-input"
               type="password"
@@ -138,13 +191,12 @@ const CreateAccountForm = (props) => {
               className="button"
               type="submit"
               disabled={disabled}
+              style={{ marginLeft: '15%' }}
             >
               Sign Up
             </Button>
-            <div>
-              <div>
-                Already have an account? <Link to={routes.login}>Login</Link>
-              </div>
+            <div style={{ marginLeft: '15%' }}>
+              Already have an account? <Link to={routes.login}>Login</Link>
             </div>
           </div>
         </Form>
