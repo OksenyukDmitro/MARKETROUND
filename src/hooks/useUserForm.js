@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 import { toast } from 'react-toastify';
-import _ from 'lodash';
 import { useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import Uploader from '../modules/uploader';
@@ -32,40 +31,31 @@ const useUserForm = () => {
   const [state, setState] = useState({
     avatar: me.profile.avatar,
     newAvatar: null,
+    isUploading: false,
+  });
+  const formikState = {
     username: me.username,
     firstName: me.profile.firstName,
     lastName: me.profile.lastName,
-    isUploading: false,
-  });
-
-  const handleChange = useCallback((e) => {
-    const { name, value } = e.target;
-    setState((s) => ({ ...s, [name]: value }));
-  }, []);
-
-  const validation = useCallback(() => {
-    const {
-      firstName, lastName, username,
-    } = state;
-
-    if (_.isEmpty(firstName) || _.isEmpty(lastName) || _.isEmpty(username)) throw new Error('invalid date');
-    return true;
-  }, [state]);
+  };
 
   const uploadAvatar = async (newAvatar) => {
     const url = await Uploader.upload(newAvatar);
     return url;
   };
 
-  const handleSubmit = useCallback(async (e) => {
+  const handleSubmit = useCallback(async (e, values) => {
     e.preventDefault();
     let newAvatar = e.target.newAvatar.files[0];
+    e.target.newAvatar.value = null;
+
     const {
-      username, firstName, lastName, avatar,
-    } = state;
+      username, firstName, lastName,
+    } = values;
+    const { avatar } = state;
+
     const profile = { firstName, lastName, avatar };
     try {
-      validation();
       if (newAvatar) {
         setState((s) => ({ ...s, isUploading: true }));
         newAvatar = await uploadAvatar(newAvatar) || avatar;
@@ -81,9 +71,9 @@ const useUserForm = () => {
       setState((s) => ({ ...s, isUploading: false }));
       toast.error(error.message);
     }
-  }, [state, updateAccount, validation]);
+  }, [state, updateAccount]);
 
-  return [state, handleChange, handleSubmit];
+  return [state, formikState, handleSubmit];
 };
 
 

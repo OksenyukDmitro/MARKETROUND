@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 import useLoginForm from '../hooks/useLoginForm';
 import routes from '../router/routes';
 import logo from '../images/3.png';
+import validationSchema from '../validationSchema';
 
 
 const LoginForm = (props) => {
@@ -22,13 +23,8 @@ const LoginForm = (props) => {
   const formik = useFormik({
     initialValues: state,
     validationSchema: Yup.object({
-      username: Yup.string()
-        .max(15, 'Must be 15 characters or less')
-        .required('Required'),
-      password: Yup.string()
-        .max(20, 'Must be 20 characters or less')
-        .min(3, 'Must be 3 characters or more')
-        .required('Required'),
+      username: validationSchema.username,
+      password: validationSchema.password,
     }),
     onSubmit: (values) => handleSubmit(values),
   });
