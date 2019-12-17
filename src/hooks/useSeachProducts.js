@@ -35,45 +35,57 @@ export const PRODUCTS_QUERY = gql`
 `;
 
 
-const useProducts = () => {
+const useProducts = (category, search) => {
   const [state, setState] = useState({
     isFetchingMore: false,
+    category,
+    searchQuery: search,
   });
 
 
   const { data, loading, fetchMore } = useQuery(PRODUCTS_QUERY, {
-    variables: { limit: 20, offset: 0 },
+    variables: {
+      limit: 20,
+      offset: 0,
+      category: state.category,
+      searchQuery: state.searchQuery,
+    },
     fetchPolicy: 'cache-and-network',
   });
 
   const products = data ? data.products : [];
 
   const fetchMoreListItems = useCallback(async () => {
-    setState({
+    setState((prevState) => ({
+      ...prevState,
       isFetchingMore: true,
-    });
+    }));
     setIsFetching(true);
     await fetchMore({
       variables: {
         offset: products.length,
         limit: 2,
+        category: state.category,
+        searchQuery: state.searchQuery,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prev;
         return { ...prev, products: [...prev.products, ...fetchMoreResult.products] };
       },
     });
-    setState({
+    setState((prevState) => ({
+      ...prevState,
       isFetchingMore: false,
-    });
-  }, [products.length, fetchMore, setIsFetching]);
+    }));
+  }, [setIsFetching, fetchMore, products.length, state.category, state.searchQuery]);
 
   const setIsFetching = useInfiniteScroll(fetchMoreListItems);
-
   return {
     products,
+    setState,
     loading,
     isFetchingMore: state.isFetchingMore,
+
   };
 };
 

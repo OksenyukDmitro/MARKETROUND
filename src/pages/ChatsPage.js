@@ -99,7 +99,7 @@ const ChatsPage = (props) => {
                 color="#6B7BF7"
               />
               <p>No messages for you... </p>
-              </div> : null}
+            </div> : null}
         </aside>
         <div style={{
           display: 'flex',

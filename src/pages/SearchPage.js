@@ -3,24 +3,28 @@ import {
   Spinner, Input, Form, Button,
 } from 'reactstrap';
 import Product from '../components/Product';
-import useProducts from '../hooks/useProducts';
+import useSeachProducts from '../hooks/useSeachProducts';
 import category from '../category';
-import routes from '../router/routes';
 
-const ProductsPage = ({ history }) => {
-  const [state, setState] = useState({
-    category: '',
-    searchQuery: '',
-  });
+const ProductsPage = (props) => {
+  const { location } = props;
+  const query = new URLSearchParams(location.search);
+  const urlCategory = query.get('category');
+  const urlSearch = query.get('search');
   const {
-    products, loading, isFetchMore: isFetchingMore,
-  } = useProducts();
+    products, setState, loading, isFetchMore: isFetchingMore,
+  } = useSeachProducts(urlCategory, urlSearch);
+  const [localState, setLocalState] = useState({
+    category: urlCategory,
+    searchQuery: urlSearch,
+  });
   const onSearch = useCallback((e) => {
     e.preventDefault();
-    history.push({
-      pathname: routes.search,
-      search: `?${new URLSearchParams({ category: state.category, search: state.searchQuery }).toString()}`,
-    });
+    setState((prevState) => ({
+      ...prevState,
+      category: localState.category,
+      searchQuery: localState.searchQuery,
+    }));
   });
   if (loading && products.length === 0) return <Spinner />;
   return (
@@ -39,11 +43,10 @@ const ProductsPage = ({ history }) => {
           type="text"
           name="search"
           placeholder="Search"
-          onChange={({ target }) => setState((prevState) => ({
-            ...prevState,
-            searchQuery: target.value,
-          }))}
-          value={state.searchQuery}
+          onChange={({ target }) => setLocalState(
+            (prevState) => ({ ...prevState, searchQuery: target.value }),
+          )}
+          value={localState.searchQuery}
         />
         <Input
           className="login-input "
@@ -53,12 +56,11 @@ const ProductsPage = ({ history }) => {
           style={{
             marginLeft: '10px', maxWidth: '200px', minWidth: '100px', marginTop: '5px',
           }}
-          onChange={({ target }) => setState((prevState) => ({
-            ...prevState,
-            category: target.value,
-          }))}
+          onChange={({ target }) => setLocalState(
+            (prevState) => ({ ...prevState, category: target.value }),
+          )}
         >
-          <option>Select a category</option>
+          <option>{urlCategory}</option>
           {category.map((ctg) => (
             <option>{ctg}</option>
           ))}
@@ -70,7 +72,7 @@ const ProductsPage = ({ history }) => {
             marginLeft: '15px', marginTop: '7px', height: '34px', lineHeight: '1',
           }}
         >
-          Search
+                    Search
         </Button>
       </Form>
 

@@ -11,5 +11,6 @@ const routes = {
   profile: '/profile',
   profileId: '/profile/:username',
   selling: '/selling',
+  search: '/search',
 };
 export default routes;

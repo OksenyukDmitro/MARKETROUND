@@ -19,7 +19,6 @@ const cache = new CellMeasurerCache({
 const Chat = ({ match }) => {
   const [chat, addMessage, body, setBody] = useMessages(match.params.id);
   // const [me, loading] = useMe();
-  console.log(setBody);
 
   if (!chat) {
     return <Spinner />;

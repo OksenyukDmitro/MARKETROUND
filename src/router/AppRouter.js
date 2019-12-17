@@ -13,6 +13,7 @@ import UserProfilePage from '../pages/UserProfilePage';
 import UserPage from '../pages/UserPage';
 import routes from './routes';
 import SellingPage from '../pages/SellingPage';
+import SearchPage from '../pages/SearchPage';
 
 const AppRouter = () => (
   <MainLayout>
@@ -55,6 +56,11 @@ const AppRouter = () => (
         path={routes.selling}
         exact
         render={(props) => <SellingPage {...props} />}
+      />
+      <Route
+        path={routes.search}
+        exact
+        render={(props) => <SearchPage {...props} />}
       />
 
       <Redirect from={routes.login} to={routes.home} exact />
