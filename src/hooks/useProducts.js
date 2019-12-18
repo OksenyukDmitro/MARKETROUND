@@ -8,38 +8,19 @@ export const PRODUCTS_QUERY = gql`
   query($offset: Int!, $limit: Int!, $category: String, $seacrhQuery: String) {
     products(offset: $offset, limit: $limit, category: $category, seacrhQuery: $seacrhQuery) @connection(key: "products") {
       title
-      _id
-      location
-      price
-      createdAt
-      categoryId
-      creatorId
-      description
+      _id      
+      price     
       images{
-        url
+        url 
       }
-      category {
-        name
-      }
-      creator{
-        _id
-        username
-          profile{
-            avatar
-            firstName
-            lastName
-          }
-        }
-        }
+       }
   }
 `;
-
 
 const useProducts = () => {
   const [state, setState] = useState({
     isFetchingMore: false,
   });
-
 
   const { data, loading, fetchMore } = useQuery(PRODUCTS_QUERY, {
     variables: { limit: 20, offset: 0 },

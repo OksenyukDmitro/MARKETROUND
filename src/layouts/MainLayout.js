@@ -31,11 +31,12 @@ const MainLayout = ({ children }) => {
           flexDirection: 'row-reverse',
         }}
       >
-        <Link to={routes.createProduct}>
-          <Button>Sell</Button>
-        </Link>
-        <Button onClick={logout}>log out</Button>
-
+        <div>
+          <Link to={routes.createProduct}>
+            <Button>Sell</Button>
+          </Link>
+          <Button onClick={logout}>log out</Button>
+        </div>
         <NavbarToggler className="m-2" />
       </Navbar>
       <Container>

@@ -1,4 +1,5 @@
 const category = [
+  'Everything Else',
   'Electronics',
   "Women's Fashion",
   "Men's Fashion",
@@ -7,7 +8,5 @@ const category = [
   'Tools & Home Improvement',
   'Arts & Crafts',
   'Sports',
-  'Everything Else',
-
 ];
 export default category;

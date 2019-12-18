@@ -16,10 +16,6 @@ const reduce = (state, action) => {
 
 const useAddProductForm = (onSuccess) => {
   const [state, dispatch] = useReducer(reduce, {
-    title: '',
-    location: '',
-    description: '',
-    price: 0,
     categoryName: '',
     photos: [],
     err: { active: false, msg: '' },
@@ -29,17 +25,18 @@ const useAddProductForm = (onSuccess) => {
 
   const { addProduct } = useProductHandlers();
 
-  const handleSubmit = useCallback(async (e) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(async (values) => {
+    const {
+      photos,
+    } = state;
     const {
       title,
       location,
       description,
-      photos,
       categoryName,
-    } = state;
+    } = values;
     try {
-      const price = parseFloat(state.price);
+      const price = parseFloat(values.price);
       const data = await addProduct({
         title,
         location,
@@ -72,9 +69,8 @@ const useAddProductForm = (onSuccess) => {
     dispatch({ type: 'change', name: 'uploadingImage', value: true });
     const url = await Uploader.upload(newImage);
     dispatch({ type: 'change', name: 'uploadingImage', value: false });
-    const images = state.photos;
-    images.push(url);
-    images.push(url);
+    const images = state.photos; images.push(url);
+
 
     dispatch({ type: 'change', name: 'name', value: images });
   }, [state.photos]);

@@ -31,7 +31,6 @@ const ProductsPage = ({ history }) => {
         style={{ marginLeft: '10px', marginRight: '15%' }}
         onSubmit={onSearch}
       >
-
         <Input
           className="login-input"
           style={{ minWidth: '100px' }}
@@ -58,7 +57,6 @@ const ProductsPage = ({ history }) => {
             category: target.value,
           }))}
         >
-          <option>Select a category</option>
           {category.map((ctg) => (
             <option>{ctg}</option>
           ))}

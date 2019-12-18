@@ -52,7 +52,7 @@ const CreateAccountForm = (props) => {
           height: '86vh',
         }}
       >
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={formik.handleSubmit}>
           <div>
             <Label
               sm={3}
