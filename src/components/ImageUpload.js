@@ -3,7 +3,7 @@ import { Input } from 'reactstrap';
 import select from '../images/btnSelect.png';
 
 const ImageUpload = ({ photos, onChange }) => {
-  const disabled = photos >= 5;
+  const disabled = photos.length >= 5;
   return (
     <div>
       <div>
@@ -59,7 +59,7 @@ const ImageUpload = ({ photos, onChange }) => {
             ))
           ) : (
             <div>
-                                Please select an Image for Preview
+                Please select an Image for Preview
             </div>
           )}
         </div>

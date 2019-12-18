@@ -75,7 +75,6 @@ const AddProductPage = (props) => {
           <Label style={{ marginBottom: '0px', marginTop: '5px' }} for="title">Title</Label>
           <Input
             id="title"
-            className=""
             type="text"
             name="title"
             placeholder="title"
@@ -90,10 +89,15 @@ const AddProductPage = (props) => {
           >
             {formik.errors.title}
           </Alert>
-          <Label style={{ marginBottom: '0px', marginTop: '5px' }} for="location">Location</Label>
+          <Label style={{ marginBottom: '0px', marginTop: '5px' }} for="location">Location </Label>
+          <Label
+            style={{ marginBottom: '0px', marginTop: '5px', color: 'grey' }}
+            for="location"
+          >
+            - Optional
+          </Label>
           <Input
             id="location"
-            className=""
             type="text"
             name="location"
             placeholder="location"
@@ -111,7 +115,6 @@ const AddProductPage = (props) => {
           <Label style={{ marginBottom: '0px', marginTop: '5px' }} for="description">Description</Label>
           <Input
             id="description"
-            className=""
             type="text"
             name="description"
             placeholder="description"
@@ -128,7 +131,6 @@ const AddProductPage = (props) => {
           </Alert>
           <Label style={{ marginBottom: '0px', marginTop: '5px' }} for="category">Category</Label>
           <Input
-            className=""
             type="select"
             name="categoryName"
             id="category"
@@ -164,6 +166,8 @@ const AddProductPage = (props) => {
           >
             {formik.errors.price}
           </Alert>
+          <Label style={{ marginBottom: '0px', marginTop: '5px' }}>Images</Label>
+          <Label style={{ marginBottom: '0px', marginTop: '5px', color: 'grey' }}>- max 5 images</Label>
           <ImageUpload photos={photos} onChange={handleChangeImages} />
           {uploadingImage ? <Spinner /> : null}
           <Button

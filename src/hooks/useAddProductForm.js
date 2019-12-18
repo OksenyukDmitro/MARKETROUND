@@ -16,9 +16,7 @@ const reduce = (state, action) => {
 
 const useAddProductForm = (onSuccess) => {
   const [state, dispatch] = useReducer(reduce, {
-    categoryName: '',
     photos: [],
-    err: { active: false, msg: '' },
     loading: false,
     uploadingImage: false,
   });
@@ -58,11 +56,6 @@ const useAddProductForm = (onSuccess) => {
   }, [addProduct, onSuccess, state]);
 
 
-  const handleChange = useCallback((e) => {
-    const { name, value } = e.target;
-    dispatch({ type: 'change', name, value });
-  }, []);
-
   const handleChangeImages = useCallback(async (e) => {
     e.preventDefault();
     const newImage = e.target.files[0];
@@ -75,7 +68,7 @@ const useAddProductForm = (onSuccess) => {
     dispatch({ type: 'change', name: 'name', value: images });
   }, [state.photos]);
 
-  return [state, handleSubmit, handleChange, handleChangeImages];
+  return [state, handleSubmit, handleChangeImages];
 };
 
 export default useAddProductForm;
