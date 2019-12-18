@@ -14,7 +14,7 @@ import { faComment, faStar } from '@fortawesome/free-regular-svg-icons';
 import logo from '../images/onlyLogo.png';
 import routes from '../router/routes';
 import useAuthHandlers from '../hooks/useAuthHandlers';
-
+import color from '../colors';
 // TODO: Fix logo load
 // TODO: Fix margin in top while scroll
 
@@ -94,7 +94,7 @@ const MainLayout = ({ children }) => {
 
                 }}
               >
-                <FontAwesomeIcon className="fa-3x" icon={faStar} color="#6B7BF7" />
+                <FontAwesomeIcon className="fa-3x" icon={faStar} color={color.main} />
                 <p style={{ color: 'black' }}> Wish</p>
               </Button>
             </Link>
@@ -107,7 +107,7 @@ const MainLayout = ({ children }) => {
                   marginLeft: '-16px',
                 }}
               >
-                <FontAwesomeIcon className="fa-3x" icon={faComment} color="#6B7BF7" />
+                <FontAwesomeIcon className="fa-3x" icon={faComment} color={color.main} />
                 <p style={{ color: 'black' }}> Chats</p>
               </Button>
             </Link>
@@ -120,7 +120,7 @@ const MainLayout = ({ children }) => {
                   marginLeft: '-23px',
                 }}
               >
-                <FontAwesomeIcon className="fa-3x" icon={faStore} color="#6B7BF7" />
+                <FontAwesomeIcon className="fa-3x" icon={faStore} color={color.main} />
                 <p style={{ color: 'black' }}> Selling</p>
               </Button>
             </Link>
@@ -133,7 +133,7 @@ const MainLayout = ({ children }) => {
                   marginLeft: '-16px',
                 }}
               >
-                <FontAwesomeIcon className="fa-3x" icon={faUserTie} color="#6B7BF7" />
+                <FontAwesomeIcon className="fa-3x" icon={faUserTie} color={color.main} />
                 <p style={{ color: 'black' }}> Profile</p>
               </Button>
             </Link>

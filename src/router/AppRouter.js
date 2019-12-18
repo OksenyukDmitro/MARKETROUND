@@ -15,6 +15,7 @@ import routes from './routes';
 import SellingPage from '../pages/SellingPage';
 import SearchPage from '../pages/SearchPage';
 import WishPage from '../pages/WishPage';
+import ChangePasswordPage from '../pages/ChangePasswordPage';
 
 const AppRouter = () => (
   <MainLayout>
@@ -68,7 +69,11 @@ const AppRouter = () => (
         exact
         render={(props) => <WishPage {...props} />}
       />
-
+      <Route
+        path={routes.changePassword}
+        exact
+        render={(props) => <ChangePasswordPage {...props} />}
+      />
       <Redirect from={routes.login} to={routes.home} exact />
       <Redirect from={routes.signUp} to={routes.home} exact />
     </Switch>

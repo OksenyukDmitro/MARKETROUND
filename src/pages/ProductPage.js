@@ -32,7 +32,7 @@ const ProductPage = (props) => {
   if (product && product.length === 0) return <Spinner />;
 
   const {
-    title, description, images, price,
+    title, description, images, price, status,
   } = product;
   const { firstName, lastName, avatar } = product.creator.profile;
   const { _id: ownerId, username: ownerUsername } = product.creator;
@@ -53,47 +53,41 @@ const ProductPage = (props) => {
         maxWidth: '500px',
       }}
       >
-        <Link
+        <CardBody className="pb-2 pl-2 pt-2" style={{ paddingRight: '0px' }}>
+          <span className="d-flex">
+            <Media
+              style={{ width: '100%' }}
+              src={image}
+              alt="pic"
+            />
 
-          to={`${routes.product}/${_id}`}
-          className="mt-2 ml-2"
+
+          </span>
+        </CardBody>
+        <Card style={{
+          marginLeft: '6px',
+          width: '99%',
+          maxWidth: '500px',
+        }}
         >
-          <CardBody className="pb-2 pl-2 pt-2" style={{ paddingRight: '0px' }}>
-            <span className="d-flex">
-              <Media
-                style={{ width: '100%' }}
-                src={image}
-                alt="pic"
-              />
-
-
-            </span>
+          <span className="d-flex mb-0" />
+          <hr className="m-0" />
+          <CardBody style={{ paddingInline: '2px' }}>
+            <h3>{` ${title}`}</h3>
+            <br />
+            <CardText tag="span">
+              <p style={{
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+              }}
+              >
+                {` ${description}`}<br />
+              </p>
+            </CardText>
           </CardBody>
-          <Card style={{
-            marginLeft: '6px',
-            width: '99%',
-            maxWidth: '500px',
-          }}
-          >
-            <span className="d-flex mb-0" />
-            <hr className="m-0" />
-            <CardBody style={{ paddingInline: '2px' }}>
-              <h3>{` ${title}`}</h3>
-              <br />
-              <CardText tag="span">
-                <p style={{
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                }}
-                >
-                  {` ${description}`}<br />
-                </p>
-              </CardText>
-            </CardBody>
 
-          </Card>
-        </Link>
+        </Card>
       </div>
       <div style={{
 
@@ -108,7 +102,7 @@ const ProductPage = (props) => {
       }}
       >
         <CardBody className="mt-2 ml-2 pb-2 pl-2 pt-2" style={{ paddingRight: '0px', maxWidth: '300px' }}>
-          <h3>{price}</h3>
+          <h5>Price : {price}</h5>
           <Button
             onClick={() => handleCreateChat(_id)}
             color="primary"
@@ -123,13 +117,12 @@ const ProductPage = (props) => {
           >
             {isWish ? 'Remove from wish list' : 'Add to wish list'}
           </Button>
-          <p>Status</p>
+          <p>Status : {status}</p>
         </CardBody>
 
       </div>
       <div style={{
         float: 'left',
-
         marginRight: '0px',
         marginTop: '10px',
         marginBottom: '10px',

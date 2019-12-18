@@ -13,5 +13,6 @@ const routes = {
   selling: '/selling',
   search: '/search',
   wish: '/wish',
+  changePassword: '/change-password',
 };
 export default routes;

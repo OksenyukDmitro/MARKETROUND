@@ -11,6 +11,7 @@ export const PRODUCT_QUERY = gql`
       price
       createdAt
       categoryId
+      status
       creatorId
       description
       images{
