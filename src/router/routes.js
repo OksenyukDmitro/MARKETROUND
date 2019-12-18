@@ -12,5 +12,6 @@ const routes = {
   profileId: '/profile/:username',
   selling: '/selling',
   search: '/search',
+  wish: '/wish',
 };
 export default routes;

@@ -81,17 +81,22 @@ const MainLayout = ({ children }) => {
               </Button>
             </Link>
             <br />
-            <Button
-              className="bg-transparent border-0"
-              style={{
-                margin: '0px',
-                marginLeft: '-20px',
-
-              }}
+            <Link
+              to={routes.wish}
+              className="mt-2 ml-2"
             >
-              <FontAwesomeIcon className="fa-3x" icon={faStar} color="#6B7BF7" />
-              <p style={{ color: 'black' }}> Wish</p>
-            </Button>
+              <Button
+                className="bg-transparent border-0"
+                style={{
+                  margin: '0px',
+                  marginLeft: '-30px',
+
+                }}
+              >
+                <FontAwesomeIcon className="fa-3x" icon={faStar} color="#6B7BF7" />
+                <p style={{ color: 'black' }}> Wish</p>
+              </Button>
+            </Link>
             <br />
             <Link to={routes.chats}>
               <Button

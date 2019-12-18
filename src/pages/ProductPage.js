@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Spinner,
   Card, CardBody, CardText, Media, Button,
@@ -13,15 +13,20 @@ import Product from '../components/Product';
 import routes from '../router/routes';
 import notImage from '../images/notImage.png';
 import useMe from '../hooks/useMe';
+import useWishHandlers from '../hooks/useWishHandlers';
+import WishModel from '../modules/wish';
 
 const ProductPage = (props) => {
   const { match: { params: { _id } }, history } = props;
-
+  const [isWish, setWish] = useState(WishModel.isWish(_id));
   const { product, loading } = useProduct(_id);
   const { userProducts, userProductsLoading } = useUserProducts(product
     ? product.creator.username : null);
   const [me] = useMe();
   const [handleCreateChat] = useChatHandlers(history);
+
+  const [addToWish, removeFromWish] = useWishHandlers(_id, setWish);
+
 
   if (!product && loading) return <Spinner />;
   if (product && product.length === 0) return <Spinner />;
@@ -111,7 +116,13 @@ const ProductPage = (props) => {
           > Start Chat
           </Button>
           <br />
-          <Button color="primary" style={{ width: '100%' }}> Add to wish list  </Button>
+          <Button
+            onClick={isWish ? removeFromWish : addToWish}
+            color="primary"
+            style={{ width: '100%' }}
+          >
+            {isWish ? 'Remove from wish list' : 'Add to wish list'}
+          </Button>
           <p>Status</p>
         </CardBody>
 
