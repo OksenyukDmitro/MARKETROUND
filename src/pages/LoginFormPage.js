@@ -29,7 +29,7 @@ const LoginForm = (props) => {
     onSubmit: (values) => handleSubmit(values),
   });
   const {
-    username, password,
+    username, password, errLogin,
   } = formik.values;
 
   return (
@@ -48,7 +48,10 @@ const LoginForm = (props) => {
         }}
       >
         <Form className="flex-center " onSubmit={formik.handleSubmit}>
-          <div className="">
+          <div>
+            <Alert color="danger" isOpen={errLogin.active}>
+              {errLogin.msg}
+            </Alert>
             <Label
               sm={3}
               style={{
@@ -65,6 +68,9 @@ const LoginForm = (props) => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={username}
+              style={{
+                marginBottom: '12px',
+              }}
             />
             <Alert
               className="login-input font-weight-normal"
@@ -102,6 +108,9 @@ const LoginForm = (props) => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={password}
+              style={{
+                marginBottom: '12px',
+              }}
             />
             <Alert
               className="login-input"

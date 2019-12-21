@@ -6,7 +6,7 @@ import useInfiniteScroll from './useInfiniteScroll';
 
 export const PRODUCTS_QUERY = gql`
   query($offset: Int!, $limit: Int!, $category: String, $seacrhQuery: String) {
-    products(offset: $offset, limit: $limit, category: $category, seacrhQuery: $seacrhQuery) @connection(key: "products") {
+    seacrhProducts(offset: $offset, limit: $limit, category: $category, seacrhQuery: $seacrhQuery) @connection(key: "products") {
       title
       _id
       location
@@ -35,25 +35,21 @@ export const PRODUCTS_QUERY = gql`
 `;
 
 
-const useProducts = (category, search) => {
+const useSeachProducts = (category, search) => {
   const [state, setState] = useState({
     isFetchingMore: false,
-    category,
-    searchQuery: search,
   });
-
-
   const { data, loading, fetchMore } = useQuery(PRODUCTS_QUERY, {
     variables: {
       limit: 20,
       offset: 0,
-      category: state.category,
-      searchQuery: state.searchQuery,
+      category: category === 'All' ? '' : category,
+      seacrhQuery: search,
     },
     fetchPolicy: 'cache-and-network',
   });
 
-  const products = data ? data.products : [];
+  const products = data ? data.seacrhProducts : [];
 
   const fetchMoreListItems = useCallback(async () => {
     setState((prevState) => ({
@@ -63,7 +59,7 @@ const useProducts = (category, search) => {
     setIsFetching(true);
     await fetchMore({
       variables: {
-        offset: products.length,
+        offset: products.length || 0,
         limit: 2,
         category: state.category,
         searchQuery: state.searchQuery,
@@ -82,11 +78,10 @@ const useProducts = (category, search) => {
   const setIsFetching = useInfiniteScroll(fetchMoreListItems);
   return {
     products,
-    setState,
     loading,
     isFetchingMore: state.isFetchingMore,
 
   };
 };
 
-export default useProducts;
+export default useSeachProducts;

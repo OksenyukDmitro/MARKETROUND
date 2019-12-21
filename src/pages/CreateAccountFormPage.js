@@ -33,7 +33,7 @@ const CreateAccountForm = (props) => {
   });
 
   const {
-    username, password, firstName, lastName, email,
+    username, password, firstName, lastName, email, errLogin,
   } = formik.values;
   const disabled = Boolean(formik.errors.password || formik.errors.username
     || formik.errors.firstName || formik.errors.lastName || formik.errors.email);
@@ -54,6 +54,9 @@ const CreateAccountForm = (props) => {
       >
         <Form onSubmit={formik.handleSubmit}>
           <div>
+            <Alert color="danger" isOpen={errLogin.active}>
+              {errLogin.msg}
+            </Alert>
             <Label
               sm={3}
               style={{
@@ -70,6 +73,9 @@ const CreateAccountForm = (props) => {
               value={username}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              style={{
+                marginBottom: '12px',
+              }}
             />
             <Alert
               className="login-input font-weight-normal"
@@ -94,6 +100,9 @@ const CreateAccountForm = (props) => {
               value={firstName}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              style={{
+                marginBottom: '12px',
+              }}
             />
             <Alert
               className="login-input font-weight-normal"
@@ -118,6 +127,9 @@ const CreateAccountForm = (props) => {
               value={lastName}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              style={{
+                marginBottom: '12px',
+              }}
             />
             <Alert
               className="login-input font-weight-normal"
@@ -142,6 +154,9 @@ const CreateAccountForm = (props) => {
               value={email}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              style={{
+                marginBottom: '12px',
+              }}
             />
             <Alert
               className="login-input font-weight-normal"
@@ -179,6 +194,9 @@ const CreateAccountForm = (props) => {
               value={password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              style={{
+                marginBottom: '12px',
+              }}
             />
             <Alert
               className="login-input font-weight-normal"

@@ -40,7 +40,7 @@ const useAddProductForm = (onSuccess) => {
         location,
         description,
         price,
-        images: [{ url: photos }],
+        images: photos,
         category: {
           name: categoryName,
         },
@@ -62,8 +62,9 @@ const useAddProductForm = (onSuccess) => {
     dispatch({ type: 'change', name: 'uploadingImage', value: true });
     const url = await Uploader.upload(newImage);
     dispatch({ type: 'change', name: 'uploadingImage', value: false });
-    const images = state.photos; images.push(url);
-
+    const images = state.photos;
+    images.push({ url });
+    console.log(images);
 
     dispatch({ type: 'change', name: 'name', value: images });
   }, [state.photos]);

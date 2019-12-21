@@ -13,13 +13,13 @@ const ProductsPage = ({ history }) => {
     searchQuery: '',
   });
   const {
-    products, loading, isFetchMore: isFetchingMore,
+    products, loading, isFetchingMore,
   } = useProducts();
   const onSearch = useCallback((e) => {
     e.preventDefault();
     history.push({
       pathname: routes.search,
-      search: `?${new URLSearchParams({ category: state.category, search: state.searchQuery }).toString()}`,
+      search: `?${new URLSearchParams({ category: state.category === 'All' ? 'All' : state.category, search: state.searchQuery }).toString()}`,
     });
   });
   if (loading && products.length === 0) return <Spinner />;
@@ -60,6 +60,7 @@ const ProductsPage = ({ history }) => {
           {category.map((ctg) => (
             <option>{ctg}</option>
           ))}
+          <option>All</option>
         </Input>
         <Button
           className="button"
@@ -80,7 +81,10 @@ const ProductsPage = ({ history }) => {
           {...product}
         />
       ))}
-      {isFetchingMore && <Spinner />}
+      {isFetchingMore && <Spinner
+        className="fixed-bottom"
+        style={{ marginLeft: 'auto', marginRight: 'auto' }}
+      />}
     </div>
   );
 };

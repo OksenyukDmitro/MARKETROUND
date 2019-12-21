@@ -16,8 +16,6 @@ const UserPage = (props) => {
 
   return (
     <div style={{ marginLeft: '80px', marginRight: 'auto' }}>
-
-
       <CardTitle className="mr-auto ml-auto text-center">
         <CardImg className="avatar mt-3 " src={profile.avatar} />
         <CardTitle className="h4">{profile.firstName}</CardTitle>

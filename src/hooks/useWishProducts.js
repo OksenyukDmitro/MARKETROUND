@@ -14,6 +14,7 @@ export const PRODUCTS_QUERY = gql`
       createdAt
       categoryId
       creatorId
+      status
       description
       images{
         url

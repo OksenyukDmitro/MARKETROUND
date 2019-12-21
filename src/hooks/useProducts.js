@@ -5,8 +5,8 @@ import useInfiniteScroll from './useInfiniteScroll';
 
 
 export const PRODUCTS_QUERY = gql`
-  query($offset: Int!, $limit: Int!, $category: String, $seacrhQuery: String) {
-    products(offset: $offset, limit: $limit, category: $category, seacrhQuery: $seacrhQuery) @connection(key: "products") {
+  query($offset: Int!, $limit: Int!) {
+    products(offset: $offset, limit: $limit) @connection(key: "products") {
       title
       _id      
       price     

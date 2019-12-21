@@ -5,14 +5,15 @@ import {
 import Product from '../components/Product';
 import useSeachProducts from '../hooks/useSeachProducts';
 import category from '../category';
+import routes from '../router/routes';
 
 const ProductsPage = (props) => {
-  const { location } = props;
+  const { location, history } = props;
   const query = new URLSearchParams(location.search);
   const urlCategory = query.get('category');
   const urlSearch = query.get('search');
   const {
-    products, setState, loading, isFetchMore: isFetchingMore,
+    products, loading, isFetchMore: isFetchingMore,
   } = useSeachProducts(urlCategory, urlSearch);
   const [localState, setLocalState] = useState({
     category: urlCategory,
@@ -20,12 +21,12 @@ const ProductsPage = (props) => {
   });
   const onSearch = useCallback((e) => {
     e.preventDefault();
-    setState((prevState) => ({
-      ...prevState,
-      category: localState.category,
-      searchQuery: localState.searchQuery,
-    }));
+    history.push({
+      pathname: routes.search,
+      search: `?${new URLSearchParams({ category: localState.category, search: localState.searchQuery }).toString()}`,
+    });
   });
+
   if (loading && products.length === 0) return <Spinner />;
   return (
     <div style={{ marginLeft: '13%', marginRight: 'auto' }}>
@@ -60,10 +61,11 @@ const ProductsPage = (props) => {
             (prevState) => ({ ...prevState, category: target.value }),
           )}
         >
-          <option>{urlCategory}</option>
+          <option>{urlCategory !== '' ? urlCategory : 'All'}</option>
           {category.map((ctg) => (
             <option>{ctg}</option>
           ))}
+          <option>All</option>
         </Input>
         <Button
           className="button"
@@ -72,7 +74,7 @@ const ProductsPage = (props) => {
             marginLeft: '15px', marginTop: '7px', height: '34px', lineHeight: '1',
           }}
         >
-                    Search
+          Search
         </Button>
       </Form>
 

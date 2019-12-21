@@ -20,8 +20,13 @@ export const ME_QUERY = gql`
 
 const useMe = () => {
   const { loading, data } = useQuery(ME_QUERY, {
-    onCompleted: ({ me: { wish } }) => {
-      WishModel.setList(wish);
+    onCompleted: ({ me }) => {
+      if (me) {
+        const wish = me.wish || [];
+        WishModel.setList(wish);
+      } else {
+        WishModel.setList([]);
+      }
     },
   });
 

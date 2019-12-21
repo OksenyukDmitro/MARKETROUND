@@ -11,7 +11,7 @@ import notImage from '../images/notImage.png';
 const Product = ({
   _id, title, images, price,
 }) => {
-  const image = images && images[0].url ? images[0].url : notImage;
+  const image = images && images[0] && images[0].url ? images[0].url : notImage;
 
   return (
     <div style={{
