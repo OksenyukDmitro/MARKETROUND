@@ -11,6 +11,7 @@ const config = {
     ]),
     new Dotenv(),
   ],
+
   module: {
     rules: [
       {
@@ -44,9 +45,10 @@ const config = {
         }
       },
       {
-
-        test: /\.(eot|gif|otf|jpg|png|svg|ttf|woff)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['file-loader'],
+        test: /\.(jpg|png)$/,
+        use: {
+          loader: 'url-loader',
+        },
       },
       {
         test: /\.html$/,

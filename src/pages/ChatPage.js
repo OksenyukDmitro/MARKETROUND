@@ -8,7 +8,8 @@ import {
   CellMeasurerCache,
 } from 'react-virtualized';
 import useMessages from '../hooks/useMessages';
-// import useMe from '../hooks/useMe';
+import useMe from '../hooks/useMe';
+import notAvatar from '../images/notAvatar.png';
 
 
 const cache = new CellMeasurerCache({
@@ -18,7 +19,7 @@ const cache = new CellMeasurerCache({
 
 const Chat = ({ match }) => {
   const [chat, addMessage, body, setBody] = useMessages(match.params.id);
-  // const [me, loading] = useMe();
+  const [me, loading] = useMe();
 
   if (!chat) {
     return <Spinner />;
@@ -26,7 +27,9 @@ const Chat = ({ match }) => {
   const {
     messages,
     interlocutor,
+    creator,
   } = chat;
+  const localInterlocutor = me._id === interlocutor._id ? creator : interlocutor;
 
   function renderRow({
     parent, index, key, style,
@@ -94,7 +97,7 @@ const Chat = ({ match }) => {
     >
 
 
-      {interlocutor ? (
+      {localInterlocutor ? (
         <div style={{
           height: '62px',
           width: '100%',
@@ -120,11 +123,14 @@ const Chat = ({ match }) => {
                 fontFamily: 'Helvetica',
                 fontSize: '14px',
                 lineHeight: '40px',
+                maxWidth: '65px',
+                overflow: 'hidden',
+
               }}
               src={
-                interlocutor.profile.avatar === null
-                  ? null
-                  : interlocutor.profile.avatar
+                localInterlocutor.profile.avatar === null
+                  ? notAvatar
+                  : localInterlocutor.profile.avatar
               }
             />
           </div>
@@ -137,7 +143,7 @@ const Chat = ({ match }) => {
             overflow: 'hidden',
             maxWidth: '50%',
           }}
-          >{`${interlocutor.profile.firstName} ${interlocutor.profile.lastName}`}
+          >{`${localInterlocutor.profile.firstName} ${localInterlocutor.profile.lastName}`}
           </p>
         </div>
       ) : null}

@@ -31,6 +31,15 @@ export const MESSAGES_QUERY = gql`
         avatar
       }
     }
+    creator{
+      username
+      _id
+      profile{
+        firstName
+        lastName
+        avatar
+      }
+    }
   }
 }
 `;

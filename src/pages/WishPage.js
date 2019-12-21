@@ -8,7 +8,6 @@ const WishPage = () => {
     products, loading, isFetchMore: isFetchingMore,
   } = useWishProducts();
 
-
   if (loading && products.length === 0) return <Spinner />;
   return (
     <div style={{ marginLeft: '13%', marginRight: 'auto' }}>
