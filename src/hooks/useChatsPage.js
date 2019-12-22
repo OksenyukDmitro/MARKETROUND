@@ -8,7 +8,7 @@ import routes from '../router/routes';
 
 export const CHATS_QUERY = gql`
  query {
-  chats(limit:5,offset:0){
+  chats(limit:5,offset:0 ) @connection(key: "chats"){
     _id
     createdAt
     productId    
@@ -52,8 +52,8 @@ const useChatsPage = () => {
       });
     }
   }, []);
-
-  return [data ? data.chats : undefined, openChat, loading];
+  console.log(data);
+  return [data ? data.chats : [], openChat, loading];
 };
 
 export default useChatsPage;

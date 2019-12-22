@@ -8,7 +8,7 @@ import useMe from './useMe';
 
 export const MESSAGES_QUERY = gql`
   query($chatId: String!) {
-    chat(chatId: $chatId)  {
+    chat(chatId: $chatId)  @connection(key: "chat")  {
     _id    
     messages{
       _id
@@ -78,7 +78,7 @@ const useMessages = (chatId) => {
         variables: { chatId },
       });
 
-      chat.messages = [...chat.messages, message];
+      chat.messages = [message, ...chat.messages];
       const newChat = { ...chat };
       cache.writeQuery({
         query: MESSAGES_QUERY,
@@ -112,6 +112,7 @@ const useMessages = (chatId) => {
   }, [addMessage, body, chatId, user]);
 
   const chat = data ? data.chat : undefined;
+
   return [
     chat,
     handleAddMessage,

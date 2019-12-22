@@ -19,7 +19,7 @@ const cache = new CellMeasurerCache({
 
 const Chat = ({ match }) => {
   const [chat, addMessage, body, setBody] = useMessages(match.params.id);
-  const [me, loading] = useMe();
+  const [me] = useMe();
 
   if (!chat) {
     return <Spinner />;
@@ -35,8 +35,7 @@ const Chat = ({ match }) => {
     parent, index, key, style,
   }) {
     const time = moment(messages[index].createdAt, 'x').fromNow();
-    // const isViewer = me && messages[index].createdBy === me._id;
-    const isViewer = index % 2;
+    const isViewer = me && messages[index].createdBy === me._id;
     return (
       <CellMeasurer
         key={key}
