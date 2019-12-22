@@ -6,7 +6,7 @@ import Product from '../components/Product';
 
 const SellingPage = () => {
   const [me, loading] = useMe();
-  const { userProducts, userProductsLoading } = useUserProducts(me ? me.username : null);
+  const { userProducts, userProductsLoading } = useUserProducts(me ? me._id : null);
   if (loading) return <Spinner style={{ width: '2rem', height: '2rem' }} />;
   return (
     <div style={{ marginLeft: '13%', marginRight: 'auto' }}>

@@ -48,7 +48,11 @@ const config = {
         test: /\.(jpg|png)$/,
         use: {
           loader: 'url-loader',
+          options: {
+            mimetype: 'image/png',
+          },
         },
+       
       },
       {
         test: /\.html$/,

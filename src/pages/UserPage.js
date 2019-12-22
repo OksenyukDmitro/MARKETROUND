@@ -9,7 +9,7 @@ import Product from '../components/Product';
 const UserPage = (props) => {
   const { match: { params: { username } } } = props;
   const { user, loading } = useUser(username);
-  const { userProducts, userProductsLoading } = useUserProducts(username);
+  const { userProducts, userProductsLoading } = useUserProducts(user ? user._id : null);
 
   if (loading) return <Spinner style={{ width: '2rem', height: '2rem' }} />;
   const { profile } = user;

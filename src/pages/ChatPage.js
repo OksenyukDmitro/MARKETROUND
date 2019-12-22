@@ -58,6 +58,7 @@ const Chat = ({ match }) => {
               marginRight: isViewer ? '0px' : 'auto',
               paddingRight: '0px',
               paddingLeft: isViewer ? '0px' : '20px',
+              overflow: "hidden"
             }}
           >
             <div

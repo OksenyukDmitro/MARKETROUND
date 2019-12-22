@@ -4,6 +4,8 @@ import {
   Card, CardBody, CardText, Media, Button,
 
 } from 'reactstrap';
+import ImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
 import { Link } from 'react-router-dom';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import useProduct from '../hooks/useProduct';
@@ -21,7 +23,7 @@ const ProductPage = (props) => {
   const [isWish, setWish] = useState(WishModel.isWish(_id));
   const { product, loading } = useProduct(_id);
   const { userProducts, userProductsLoading } = useUserProducts(product
-    ? product.creator.username : null);
+    ? product.creator._id : null);
   const [me] = useMe();
   const [handleCreateChat] = useChatHandlers(history);
 
@@ -37,8 +39,12 @@ const ProductPage = (props) => {
   const { firstName, lastName, avatar } = product.creator.profile;
   const { _id: ownerId, username: ownerUsername } = product.creator;
 
-  const image = images && images[0].url ? images[0].url : notImage;
-
+  const imagesForImageGallery = [];
+  if (images) {
+    images.map((image) => {
+      imagesForImageGallery.push({ original: image.url })
+    })
+  }
 
   return (
     <div style={{ marginLeft: '80px', marginRight: 'auto' }}>
@@ -55,11 +61,20 @@ const ProductPage = (props) => {
       >
         <CardBody className="pb-2 pl-2 pt-2" style={{ paddingRight: '0px' }}>
           <span className="d-flex">
-            <Media
-              style={{ width: '100%' }}
-              src={image}
-              alt="pic"
-            />
+
+            {imagesForImageGallery.length > 0 ? <ImageGallery
+              items={imagesForImageGallery}
+              defaultImage={notImage}
+              showBullets={true}
+              showIndex={true}
+              showThumbnails={false}
+              lazyLoad={true}
+              showPlayButton={false}
+            /> : <Media
+                style={{ width: '100%' }}
+                src={notImage}
+                alt="pic"
+              />}
 
 
           </span>
