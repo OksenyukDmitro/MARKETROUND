@@ -19,7 +19,7 @@ const CreateAccountForm = (props) => {
     toast.success(`Welcome ${user.username}!`);
     history.push(routes.home);
   }, [history]);
-  const [state, handleSubmit] = useLoginForm({ isLogin, onSuccess });
+  const [state, handleSubmit, errSignUp] = useLoginForm({ isLogin, onSuccess });
   const formik = useFormik({
     initialValues: state,
     validationSchema: Yup.object({
@@ -33,7 +33,7 @@ const CreateAccountForm = (props) => {
   });
 
   const {
-    username, password, firstName, lastName, email, errLogin,
+    username, password, firstName, lastName, email,
   } = formik.values;
   const disabled = Boolean(formik.errors.password || formik.errors.username
     || formik.errors.firstName || formik.errors.lastName || formik.errors.email);
@@ -54,8 +54,8 @@ const CreateAccountForm = (props) => {
       >
         <Form onSubmit={formik.handleSubmit}>
           <div>
-            <Alert color="danger" isOpen={errLogin.active}>
-              {errLogin.msg}
+            <Alert className="login-input font-weight-normal" color="danger" isOpen={errSignUp.active}>
+              {errSignUp.msg}
             </Alert>
             <Label
               sm={3}

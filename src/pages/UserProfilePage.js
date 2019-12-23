@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 import routes from '../router/routes';
 import useUserForm from '../hooks/useUserForm';
 import validationSchema from '../validationSchema';
+import emptyAvatar from '../images/emptyAvatar.png';
 
 
 const UserProfilePage = () => {
@@ -25,7 +26,8 @@ const UserProfilePage = () => {
   const {
     username, firstName, lastName,
   } = formik.values;
-  const { avatar, isUploading } = state;
+  const { avatar, isUploading, errUpdate } = state;
+  const userAvatar = avatar || emptyAvatar;
   const disabled = Boolean(formik.errors.username
     || formik.errors.firstName || formik.errors.lastName || isUploading);
   return (
@@ -38,7 +40,7 @@ const UserProfilePage = () => {
       >
         <FormGroup>
           <Col sm={12}>
-            <Media className="avatar" src={avatar} />
+            <Media className="avatar" src={userAvatar} />
           </Col>
         </FormGroup>
         <FormGroup>
@@ -46,6 +48,9 @@ const UserProfilePage = () => {
             Username
           </Label>
           <Col>
+            <Alert className="font-weight-normal" color="danger" isOpen={errUpdate.active}>
+              {errUpdate.msg}
+            </Alert>
             <Input
               value={username}
               name="username"

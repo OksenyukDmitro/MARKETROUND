@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import useAuthHandlers from './useAuthHandlers';
 
 const useLoginForm = ({ isLogin, onSuccess }) => {
@@ -8,9 +8,8 @@ const useLoginForm = ({ isLogin, onSuccess }) => {
     firstName: '',
     lastName: '',
     email: '',
-    errLogin: { active: false, msg: '' },
   };
-
+  const [errLogin, setErrLogin] = useState({ active: false, msg: '' });
   const { createAccount, login } = useAuthHandlers();
 
   const handleSubmit = useCallback(async (values) => {
@@ -18,6 +17,9 @@ const useLoginForm = ({ isLogin, onSuccess }) => {
       username, password, firstName, lastName, email,
     } = values;
     try {
+      setErrLogin({
+        active: false, msg: '',
+      });
       let data;
       if (isLogin) {
         data = await login(username, password);
@@ -28,12 +30,14 @@ const useLoginForm = ({ isLogin, onSuccess }) => {
       }
       onSuccess(data);
     } catch (err) {
-      console.log(err);
+      setErrLogin({
+        active: true, msg: err.graphQLErrors.map((error) => error.message).join('\n'),
+      });
     }
   }, [createAccount, isLogin, login, onSuccess]);
 
 
-  return [state, handleSubmit];
+  return [state, handleSubmit, errLogin];
 };
 
 export default useLoginForm;

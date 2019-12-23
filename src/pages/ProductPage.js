@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import {
   Spinner,
   Card, CardBody, CardText, Media, Button,
-
 } from 'reactstrap';
-import ImageGallery from "react-image-gallery";
-import "react-image-gallery/styles/css/image-gallery.css";
+import ImageGallery from 'react-image-gallery';
+import 'react-image-gallery/styles/css/image-gallery.css';
 import { Link } from 'react-router-dom';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 import useProduct from '../hooks/useProduct';
 import useUserProducts from '../hooks/useUserProducts';
 import useChatHandlers from '../hooks/useChatHandlers';
@@ -19,7 +17,7 @@ import useWishHandlers from '../hooks/useWishHandlers';
 import WishModel from '../modules/wish';
 
 const ProductPage = (props) => {
-  const { match: { params: { _id } }, history } = props;
+  const { match: { params: { _id } }, history, location } = props;
   const [isWish, setWish] = useState(WishModel.isWish(_id));
   const { product, loading } = useProduct(_id);
   const { userProducts, userProductsLoading } = useUserProducts(product
@@ -33,6 +31,14 @@ const ProductPage = (props) => {
   if (!product && loading) return <Spinner />;
   if (product && product.length === 0) return <Spinner />;
 
+  const openLoginPage = () => {
+    history.push({
+      pathname: routes.login,
+      state: {
+        from: location.pathname,
+      },
+    });
+  };
   const {
     title, description, images, price, status,
   } = product;
@@ -41,9 +47,9 @@ const ProductPage = (props) => {
 
   const imagesForImageGallery = [];
   if (images) {
-    images.map((image) => {
-      imagesForImageGallery.push({ original: image.url })
-    })
+    images.forEach((image) => {
+      imagesForImageGallery.push({ original: image.url });
+    });
   }
 
   return (
@@ -65,16 +71,16 @@ const ProductPage = (props) => {
             {imagesForImageGallery.length > 0 ? <ImageGallery
               items={imagesForImageGallery}
               defaultImage={notImage}
-              showBullets={true}
-              showIndex={true}
+              showBullets
+              showIndex
               showThumbnails={false}
-              lazyLoad={true}
+              lazyLoad
               showPlayButton={false}
             /> : <Media
-                style={{ width: '100%' }}
-                src={notImage}
-                alt="pic"
-              />}
+              style={{ width: '100%' }}
+              src={notImage}
+              alt="pic"
+            />}
 
 
           </span>
@@ -119,7 +125,7 @@ const ProductPage = (props) => {
         <CardBody className="mt-2 ml-2 pb-2 pl-2 pt-2" style={{ paddingRight: '0px', maxWidth: '300px' }}>
           <h5>Price : {price}</h5>
           <Button
-            onClick={() => handleCreateChat(_id)}
+            onClick={me ? () => handleCreateChat(_id) : openLoginPage}
             color="primary"
             style={{ width: '100%' }}
           > Start Chat
@@ -129,6 +135,7 @@ const ProductPage = (props) => {
             onClick={isWish ? removeFromWish : addToWish}
             color="primary"
             style={{ width: '100%' }}
+            disabled={!me}
           >
             {isWish ? 'Remove from wish list' : 'Add to wish list'}
           </Button>
@@ -147,7 +154,7 @@ const ProductPage = (props) => {
       }}
       >
         <Link
-          to={me._id === ownerId ? `${routes.profile}` : `${routes.profile}/${ownerUsername}`}
+          to={me && me._id === ownerId ? `${routes.profile}` : `${routes.profile}/${ownerUsername}`}
           className="mt-2 ml-2"
         >
 
@@ -182,7 +189,7 @@ const ProductPage = (props) => {
           width: '99%',
           maxWidth: '500px',
           height: '100%',
-          paddingBottom: '30px',
+          paddingBottom: userProducts.length > 0 ? '30px' : '0px',
         }}
         >
           <CardBody style={{ padding: '0px' }}>

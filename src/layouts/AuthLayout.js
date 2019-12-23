@@ -1,11 +1,8 @@
 import React from 'react';
 import {
-  Collapse,
   Navbar,
   NavbarBrand,
-  Nav,
   Container,
-  NavItem,
   Button,
   Media,
 } from 'reactstrap';
@@ -15,7 +12,20 @@ import routes from '../router/routes';
 
 const AuthLayout = ({ children }) => (
   <>
-    <Navbar className="nav-bar " color="white" light expand="md">
+    <Navbar
+      className="nav-bar "
+      color="white"
+      light
+      expand="md"
+      style={{
+        flexDirection: 'row-reverse',
+        justifyContent: 'space-between',
+      }}
+    >
+
+      <Link to={routes.login}>
+        <Button>Login</Button>
+      </Link>
       <NavbarBrand>
         <Link
           to={routes.home}
@@ -43,15 +53,6 @@ const AuthLayout = ({ children }) => (
           </Button>
         </Link>
       </NavbarBrand>
-      <Collapse navbar>
-        <Nav className="ml-auto" navbar>
-          <NavItem>
-            <Link to={routes.login}>
-              <Button>Login</Button>
-            </Link>
-          </NavItem>
-        </Nav>
-      </Collapse>
     </Navbar>
     <Container>
       {children}

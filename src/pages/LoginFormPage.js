@@ -13,13 +13,20 @@ import validationSchema from '../validationSchema';
 
 
 const LoginForm = (props) => {
-  const { history } = props;
+  const { history, location } = props;
+  console.log(location);
   const isLogin = true;
   const onSuccess = React.useCallback(({ user }) => {
     toast.success(`Welcome ${user.username}!`);
-    history.push(routes.home);
-  }, [history]);
-  const [state, handleSubmit] = useLoginForm({ isLogin, onSuccess });
+    if (location.state && location.state.from) {
+      history.push({
+        pathname: location.state.from,
+      });
+    } else {
+      history.push(routes.home);
+    }
+  }, [history, location.state]);
+  const [state, handleSubmit, errLogin] = useLoginForm({ isLogin, onSuccess });
   const formik = useFormik({
     initialValues: state,
     validationSchema: Yup.object({
@@ -29,7 +36,7 @@ const LoginForm = (props) => {
     onSubmit: (values) => handleSubmit(values),
   });
   const {
-    username, password, errLogin,
+    username, password,
   } = formik.values;
 
   return (
@@ -49,7 +56,7 @@ const LoginForm = (props) => {
       >
         <Form className="flex-center " onSubmit={formik.handleSubmit}>
           <div>
-            <Alert color="danger" isOpen={errLogin.active}>
+            <Alert className="login-input font-weight-normal" color="danger" isOpen={errLogin.active}>
               {errLogin.msg}
             </Alert>
             <Label

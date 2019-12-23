@@ -32,6 +32,7 @@ const useUserForm = () => {
     avatar: me.profile.avatar,
     newAvatar: null,
     isUploading: false,
+    errUpdate: { active: false, msg: '' },
   });
   const formikState = {
     username: me.username,
@@ -56,6 +57,7 @@ const useUserForm = () => {
 
     const profile = { firstName, lastName, avatar };
     try {
+      setState((s) => ({ ...s, isUploading: false, errUpdate: { active: false, msg: '' } }));
       if (newAvatar) {
         setState((s) => ({ ...s, isUploading: true }));
         newAvatar = await uploadAvatar(newAvatar) || avatar;
@@ -67,9 +69,15 @@ const useUserForm = () => {
         variables: { username, profile },
       });
       toast.success('Success');
-    } catch (error) {
-      setState((s) => ({ ...s, isUploading: false }));
-      toast.error(error.message);
+    } catch (err) {
+      setState((s) => ({
+        ...s,
+        isUploading: false,
+        errUpdate: {
+          active: true,
+          msg: err.graphQLErrors.map((error) => error.message).join('\n'),
+        },
+      }));
     }
   }, [state, updateAccount]);
 
