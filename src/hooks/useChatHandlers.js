@@ -28,7 +28,12 @@ const useChatHandlers = (history) => {
     },
   });
 
-  const handleCreateChat = useCallback(async (productId) => {
+  const handleCreateChat = useCallback(async (productId, user_id, ownerId) => {
+    if (user_id === ownerId) {
+      history.push(routes.chats);
+      return;
+    }
+
     try {
       await createChat({
         variables: { productId },
@@ -38,7 +43,7 @@ const useChatHandlers = (history) => {
       toast.error(error.message);
       throw error;
     }
-  }, [createChat]);
+  }, [createChat, history]);
 
 
   return [

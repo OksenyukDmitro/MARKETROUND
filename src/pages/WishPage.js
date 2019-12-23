@@ -14,13 +14,18 @@ const WishPage = () => {
   return (
     <div style={{ marginLeft: '13%', marginRight: 'auto' }}>
 
-      {products.length > 0 ? products.map((product) => (
-        <Product
-          key={product._id}
+      {products.length > 0 ? <>
+        <div className="mr-auto ml-auto text-center">
+          <h4>Wishlist</h4>
+        </div>
+        {products.map((product) => (
+          <Product
+            key={product._id}
 
-          {...product}
-        />
-      ))
+            {...product}
+          />
+        ))}
+      </>
         : <div className="mr-auto ml-auto text-center">
           <p>Your Wishlist is empty.</p>
           <p>You can add this product to the wishlist in the product page</p>

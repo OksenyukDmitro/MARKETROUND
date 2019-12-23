@@ -104,7 +104,6 @@ const useMessages = (chatId) => {
           },
         },
       });
-      toast.success('Published a new post');
     } catch (error) {
       toast.error(error.message);
       throw error;

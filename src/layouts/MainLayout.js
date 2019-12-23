@@ -7,18 +7,22 @@ import {
   Media,
   Button,
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStore, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import { faComment, faStar } from '@fortawesome/free-regular-svg-icons';
+
 import logo from '../images/onlyLogo.png';
 import routes from '../router/routes';
 import useAuthHandlers from '../hooks/useAuthHandlers';
 import color from '../colors';
+
 // TODO: Fix logo load
 // TODO: Fix margin in top while scroll
 
 const MainLayout = ({ children }) => {
+  const { pathname } = useLocation();
+
   const { logout } = useAuthHandlers();
   return (
     <div>
@@ -87,11 +91,11 @@ const MainLayout = ({ children }) => {
               className="mt-2 ml-2"
             >
               <Button
-                className="bg-transparent border-0"
+                className="border-0"
                 style={{
                   margin: '0px',
                   marginLeft: '-30px',
-
+                  backgroundColor: pathname === routes.wish ? color.navBarSelected : 'transparent',
                 }}
               >
                 <FontAwesomeIcon className="fa-3x" icon={faStar} color={color.main} />
@@ -101,10 +105,12 @@ const MainLayout = ({ children }) => {
             <br />
             <Link to={routes.chats}>
               <Button
-                className="bg-transparent border-0"
+                className="border-0"
                 style={{
                   margin: '0px',
                   marginLeft: '-16px',
+                  marginBottom: '12px',
+                  backgroundColor: pathname === routes.chats ? color.navBarSelected : 'transparent',
                 }}
               >
                 <FontAwesomeIcon className="fa-3x" icon={faComment} color={color.main} />
@@ -114,10 +120,12 @@ const MainLayout = ({ children }) => {
             <br />
             <Link to={routes.selling}>
               <Button
-                className="bg-transparent border-0"
+                className=" border-0"
                 style={{
                   margin: '0px',
                   marginLeft: '-23px',
+                  paddingRight: '3px',
+                  backgroundColor: pathname === routes.selling ? color.navBarSelected : 'transparent',
                 }}
               >
                 <FontAwesomeIcon className="fa-3x" icon={faStore} color={color.main} />
@@ -127,10 +135,11 @@ const MainLayout = ({ children }) => {
             <br />
             <Link to={routes.profile}>
               <Button
-                className="bg-transparent border-0"
+                className="border-0"
                 style={{
                   margin: '0px',
                   marginLeft: '-16px',
+                  backgroundColor: pathname === routes.profile ? color.navBarSelected : 'transparent',
                 }}
               >
                 <FontAwesomeIcon className="fa-3x" icon={faUserTie} color={color.main} />

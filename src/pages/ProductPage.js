@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Spinner,
-  Card, CardBody, CardText, Media, Button,
+  Card, CardBody, CardText, Media, Button, Input,
 } from 'reactstrap';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
@@ -14,19 +14,21 @@ import routes from '../router/routes';
 import notImage from '../images/notImage.png';
 import useMe from '../hooks/useMe';
 import useWishHandlers from '../hooks/useWishHandlers';
+import useProductHandlers from '../hooks/useProductHandlers';
 import WishModel from '../modules/wish';
+import enumStatus from '../status';
 
 const ProductPage = (props) => {
   const { match: { params: { _id } }, history, location } = props;
   const [isWish, setWish] = useState(WishModel.isWish(_id));
   const { product, loading } = useProduct(_id);
+  const [localStatus, setStatus] = useState('CLOSED');
+  const { updateProduct } = useProductHandlers(_id);
   const { userProducts, userProductsLoading } = useUserProducts(product
     ? product.creator._id : null);
   const [me] = useMe();
   const [handleCreateChat] = useChatHandlers(history);
-
   const [addToWish, removeFromWish] = useWishHandlers(_id, setWish);
-
 
   if (!product && loading) return <Spinner />;
   if (product && product.length === 0) return <Spinner />;
@@ -40,11 +42,10 @@ const ProductPage = (props) => {
     });
   };
   const {
-    title, description, images, price, status,
+    title, description, images, price, status, category,
   } = product;
   const { firstName, lastName, avatar } = product.creator.profile;
   const { _id: ownerId, username: ownerUsername } = product.creator;
-
   const imagesForImageGallery = [];
   if (images) {
     images.forEach((image) => {
@@ -125,10 +126,11 @@ const ProductPage = (props) => {
         <CardBody className="mt-2 ml-2 pb-2 pl-2 pt-2" style={{ paddingRight: '0px', maxWidth: '300px' }}>
           <h5>Price : {price}</h5>
           <Button
-            onClick={me ? () => handleCreateChat(_id) : openLoginPage}
+            disabled={status === 'CLOSED'}
+            onClick={me ? () => handleCreateChat(_id, me._id, ownerId) : openLoginPage}
             color="primary"
             style={{ width: '100%' }}
-          > Start Chat
+          >{me && me._id === ownerId ? 'Chats' : 'Start Chat'}
           </Button>
           <br />
           <Button
@@ -139,7 +141,32 @@ const ProductPage = (props) => {
           >
             {isWish ? 'Remove from wish list' : 'Add to wish list'}
           </Button>
+          {me && me._id === ownerId ? <>
+
+            <Input
+              className="login-input "
+              type="select"
+              name="status"
+              style={{
+                marginLeft: '10px', maxWidth: '200px', minWidth: '100px', marginTop: '5px',
+              }}
+              onChange={({ target }) => setStatus(target.value)}
+            >
+              {enumStatus.map((sts) => (
+                <option>{sts}</option>
+              ))}
+
+            </Input>
+            <Button
+              onClick={() => updateProduct(_id, localStatus)}
+              color="primary"
+              style={{ width: '100%' }}
+            >
+              Change status
+            </Button>
+          </> : null}
           <p>Status : {status}</p>
+          <p>Category : {category.name}</p>
         </CardBody>
 
       </div>
