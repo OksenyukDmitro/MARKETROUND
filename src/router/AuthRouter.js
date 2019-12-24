@@ -10,6 +10,7 @@ import ProductsPage from '../pages/ProductsPage';
 import ProductPage from '../pages/ProductPage';
 import UserPage from '../pages/UserPage';
 import SearchPage from '../pages/SearchPage';
+import ForgotPasswordPage from '../pages/ForgotPasswordPage';
 import AuthLayout from '../layouts/AuthLayout';
 import routes from './routes';
 
@@ -44,6 +45,11 @@ const AuthRouter = (p) => (
         path={routes.profileId}
         exact
         render={(props) => <UserPage {...props} />}
+      />
+      <Route
+        path={routes.forgotPassword}
+        exact
+        component={ForgotPasswordPage}
       />
       <Route render={() => <Redirect to={routes.login} exact />} />
     </Switch>
