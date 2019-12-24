@@ -25,7 +25,16 @@ export const CHATS_QUERY = gql`
     lastMessage{
       body
     }
-      interlocutor{
+    interlocutor{
+      username
+      _id
+      profile{
+        firstName
+        lastName
+        avatar
+      }
+    }
+    creator{
       username
       _id
       profile{

@@ -90,6 +90,7 @@ const useMessages = (chatId) => {
   });
 
   const handleAddMessage = useCallback(async () => {
+    setBody('');
     try {
       await addMessage({
         variables: { chatId, body },

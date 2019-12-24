@@ -17,8 +17,6 @@ import routes from '../router/routes';
 import useAuthHandlers from '../hooks/useAuthHandlers';
 import color from '../colors';
 
-// TODO: Fix logo load
-// TODO: Fix margin in top while scroll
 
 const MainLayout = ({ children }) => {
   const { pathname } = useLocation();

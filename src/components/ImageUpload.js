@@ -45,7 +45,7 @@ const ImageUpload = ({ photos, onChange }) => {
             photos.map((item) => (
               <div>
                 <img
-                  src={item}
+                  src={item.url}
                   alt="preview"
                   style={{
                     height: '92px',

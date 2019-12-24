@@ -14,7 +14,6 @@ import validationSchema from '../validationSchema';
 
 const LoginForm = (props) => {
   const { history, location } = props;
-  console.log(location);
   const isLogin = true;
   const onSuccess = React.useCallback(({ user }) => {
     toast.success(`Welcome ${user.username}!`);

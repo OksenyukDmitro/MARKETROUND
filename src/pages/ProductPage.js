@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Spinner,
-  Card, CardBody, CardText, Media, Button, Input,
+  Card, CardBody, CardText, Media, Button, Input, CardTitle,
 } from 'reactstrap';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
@@ -199,14 +199,11 @@ const ProductPage = (props) => {
                 src={avatar || notImage}
                 alt="pic"
               />
-
               <h3>{` ${firstName}`}</h3>
               <br />
               <h3>{` ${lastName}`}</h3>
               <br />
-
             </CardBody>
-
           </Card>
         </Link>
 
@@ -219,6 +216,9 @@ const ProductPage = (props) => {
           paddingBottom: userProducts.length > 0 ? '30px' : '0px',
         }}
         >
+          <CardTitle className=" h5 mr-auto ml-auto text-center" style={{ marginBottom: '-27px' }}>
+            Last user products
+          </CardTitle>
           <CardBody style={{ padding: '0px' }}>
 
             {userProductsLoading ? <Spinner />

@@ -1,6 +1,8 @@
 import React from 'react';
 import moment from 'moment';
-import { Spinner } from 'reactstrap';
+import {
+  Spinner, Input, Button, Media,
+} from 'reactstrap';
 import {
   List,
   AutoSizer,
@@ -31,62 +33,6 @@ const Chat = ({ match }) => {
   } = chat;
   const localInterlocutor = me._id === interlocutor._id ? creator : interlocutor;
 
-  function renderRow({
-    parent, index, key, style,
-  }) {
-    const time = moment(messages[index].createdAt, 'x').fromNow();
-    const isViewer = me && messages[index].createdBy === me._id;
-    return (
-      <CellMeasurer
-        key={key}
-        cache={cache}
-        parent={parent}
-        columnIndex={0}
-        rowIndex={index}
-      >
-        <div style={style} className="row">
-          <div
-            style={{
-              padding: '8px',
-              paddingTop: ' 0px',
-              alignSelf: 'flex-end',
-              maxWidth: '220px',
-              width: 'fit-content',
-              margin: '4px',
-              marginTop: '8px',
-              marginLeft: isViewer ? 'auto' : '0px',
-              marginRight: isViewer ? '0px' : 'auto',
-              paddingRight: '0px',
-              paddingLeft: isViewer ? '0px' : '20px',
-              overflow: 'hidden',
-            }}
-          >
-            <div
-
-              style={{
-                color: 'black',
-                borderRadius: '10%',
-                padding: '6px',
-                background: isViewer ? '#00aeef' : '#aaaeef',
-                textAlign: isViewer ? 'right' : 'left',
-              }}
-            >
-              {messages[index].body}
-            </div>
-            <p style={{
-              fontSize: '13px',
-              lineHeight: '26px',
-              textAlign: 'right',
-              color: '#97a3b4',
-              marginBottom: '0px',
-            }}
-            >{time}
-            </p>
-          </div>
-        </div>
-      </CellMeasurer>
-    );
-  }
   return (
     <div style={{
       width: '100%',
@@ -101,7 +47,7 @@ const Chat = ({ match }) => {
         <div style={{
           height: '62px',
           width: '100%',
-          background: '#00AEEF',
+          borderBottom: '1px solid cornflowerblue',
         }}
         >
           <div style={{
@@ -109,7 +55,7 @@ const Chat = ({ match }) => {
             float: 'left',
           }}
           >
-            <img
+            <Media
               alt="interlocutorAvatar"
               style={{
                 position: 'relative',
@@ -179,10 +125,10 @@ const Chat = ({ match }) => {
         marginLeft: '-1px',
         marginRight: '20px',
         height: '58px',
-        width: '65%',
+        width: 'calc(100% - 400px)',
       }}
       >
-        <input
+        <Input
           style={{
             flexGrow: 2,
             border: 'none',
@@ -192,21 +138,78 @@ const Chat = ({ match }) => {
           onChange={(e) => setBody(e.target.value)}
           placeholder="Type your message her"
         />
-        <button
+        <Button
           style={{
             border: ' 1px solid blue',
-            background: 'blue',
             color: 'white',
-            marginRight: '56px',
+            marginRight: '40px',
+            paddingTop: '0px',
           }}
           onClick={() => addMessage()}
           type="button"
         >
           SEND
-        </button>
+        </Button>
       </div>
     </div>
   );
+
+  function renderRow({
+    parent, index, key, style,
+  }) {
+    const time = moment(messages[index].createdAt, 'x').fromNow();
+    const isViewer = me && messages[index].createdBy === me._id;
+    return (
+      <CellMeasurer
+        key={key}
+        cache={cache}
+        parent={parent}
+        columnIndex={0}
+        rowIndex={index}
+      >
+        <div style={style} className="row">
+          <div
+            style={{
+              padding: '8px',
+              paddingTop: ' 0px',
+              alignSelf: 'flex-end',
+              maxWidth: '220px',
+              width: 'fit-content',
+              margin: '4px',
+              marginTop: '8px',
+              marginLeft: isViewer ? 'auto' : '0px',
+              marginRight: isViewer ? '0px' : 'auto',
+              paddingRight: '0px',
+              paddingLeft: isViewer ? '0px' : '20px',
+              overflow: 'hidden',
+            }}
+          >
+            <div
+
+              style={{
+                color: 'black',
+                borderRadius: '10%',
+                padding: '6px',
+                background: isViewer ? '#00aeef' : '#aaaeef',
+                textAlign: isViewer ? 'right' : 'left',
+              }}
+            >
+              {messages[index].body}
+            </div>
+            <p style={{
+              fontSize: '13px',
+              lineHeight: '26px',
+              textAlign: 'right',
+              color: '#97a3b4',
+              marginBottom: '0px',
+            }}
+            >{time}
+            </p>
+          </div>
+        </div>
+      </CellMeasurer>
+    );
+  }
 };
 
 export default Chat;
