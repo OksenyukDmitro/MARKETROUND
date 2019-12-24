@@ -62,6 +62,7 @@ const useMessages = (chatId) => {
   const { data, loading } = useQuery(MESSAGES_QUERY, {
     variables: { chatId },
     fetchPolicy: 'cache-and-network',
+    pollInterval: 3000,
   });
 
 
@@ -78,7 +79,7 @@ const useMessages = (chatId) => {
         variables: { chatId },
       });
 
-      chat.messages = [message, ...chat.messages];
+      chat.messages = [...chat.messages, message];
       const newChat = { ...chat };
       cache.writeQuery({
         query: MESSAGES_QUERY,

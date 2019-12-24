@@ -4,7 +4,7 @@ import {
 } from 'reactstrap';
 import Product from '../components/Product';
 import useProducts from '../hooks/useProducts';
-import category from '../category';
+import category from '../helpers/category';
 import routes from '../router/routes';
 
 const ProductsPage = ({ history }) => {

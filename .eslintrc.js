@@ -27,5 +27,6 @@ module.exports = {
     "indent": ["error", 2, { "ignoredNodes": ["JSXElement"] }],
     "import/no-cycle": "off",
     "no-use-before-define": "off",
+    "react/jsx-closing-tag-location": "off",
   }
 };

@@ -97,7 +97,7 @@ const useProductHandlers = (_id) => {
     return data;
   }, [addProductMutate]);
 
-  const updateProduct = useCallback(async (_id, status) => {
+  const updateProduct = useCallback(async (status) => {
     const { data: { updateProduct: data } } = await updateProductMutate({
       variables: {
         input: {
@@ -107,7 +107,7 @@ const useProductHandlers = (_id) => {
       },
     });
     return data;
-  }, [updateProductMutate]);
+  }, [_id, updateProductMutate]);
 
 
   return { addProduct, updateProduct };

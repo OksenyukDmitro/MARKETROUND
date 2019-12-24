@@ -56,9 +56,10 @@ const Product = ({
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
+                color: 'black',
               }}
               > {` ${title}`}<br />
-                {` ${price}`}<br />
+                {` ${price} $`}<br />
               </p>
             </CardText>
           </CardBody>

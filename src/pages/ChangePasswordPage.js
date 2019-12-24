@@ -5,7 +5,7 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import useChangePasswordForm from '../hooks/useChangePasswordForm';
-import validationSchema from '../validationSchema';
+import validationSchema from '../helpers/validationSchema';
 
 const ChangePasswordPage = () => {
   const [state, handleSubmit] = useChangePasswordForm();

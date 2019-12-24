@@ -28,8 +28,8 @@ const useChatHandlers = (history) => {
     },
   });
 
-  const handleCreateChat = useCallback(async (productId, user_id, ownerId) => {
-    if (user_id === ownerId) {
+  const handleCreateChat = useCallback(async (productId, userId, ownerId) => {
+    if (userId === ownerId) {
       history.push(routes.chats);
       return;
     }

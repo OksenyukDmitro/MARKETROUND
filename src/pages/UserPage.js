@@ -23,7 +23,7 @@ const UserPage = (props) => {
         <CardTitle className="h5">Last Name: {profile.lastName}</CardTitle>
       </CardTitle>
 
-      <CardTitle
+      {userProducts && userProducts.length > 0 ? <CardTitle
         className="p"
         style={{
           marginLeft: '7%',
@@ -32,7 +32,7 @@ const UserPage = (props) => {
           marginTop: '50px',
         }}
       >User products :
-      </CardTitle>
+      </CardTitle> : null}
 
       <CardBody style={{ marginLeft: '7%', marginRight: 'auto', paddingBottom: '45px' }}>
 

@@ -3,13 +3,13 @@ import * as Yup from 'yup';
 
 const validationSchema = {
   username: Yup.string()
-    .max(15, 'Must be 15 characters or less')
+    .max(20, 'Must be 20 characters or less')
     .required('Required'),
   firstName: Yup.string()
-    .max(15, 'Must be 15 characters or less')
+    .max(25, 'Must be 25 characters or less')
     .required('Required'),
   lastName: Yup.string()
-    .max(15, 'Must be 15 characters or less')
+    .max(25, 'Must be 25 characters or less')
     .required('Required'),
   email: Yup.string()
     .email('Invalid email address')
@@ -19,14 +19,14 @@ const validationSchema = {
     .min(3, 'Must be 3 characters or more')
     .required('Required'),
   title: Yup.string()
-    .max(15, 'Must be 15 characters or less')
+    .max(25, 'Must be 25 characters or less')
     .min(3, 'Must be 3 characters or more')
     .required('Required'),
   location: Yup.string()
     .max(20, 'Must be 20 characters or less')
     .min(3, 'Must be 3 characters or more'),
   description: Yup.string()
-    .max(1000, 'Must be 1000 characters or less')
+    .max(5000, 'Must be 5000 characters or less')
     .required('Required'),
   categoryName: Yup.string()
     .required('Required'),

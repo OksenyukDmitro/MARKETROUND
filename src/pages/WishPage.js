@@ -34,7 +34,7 @@ const WishPage = () => {
               Go shopping
             </Button>
           </Link>
-          </div>}
+        </div>}
       {isFetchingMore && <Spinner />}
     </div>
   );

@@ -11,11 +11,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStore, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import { faComment, faStar } from '@fortawesome/free-regular-svg-icons';
-
 import logo from '../images/onlyLogo.png';
 import routes from '../router/routes';
 import useAuthHandlers from '../hooks/useAuthHandlers';
-import color from '../colors';
+import color from '../helpers/colors';
 
 
 const MainLayout = ({ children }) => {

@@ -8,7 +8,7 @@ import Chat from './ChatPage';
 import routes from '../router/routes';
 import useChatsPage from '../hooks/useChatsPage';
 import useMe from '../hooks/useMe';
-import colors from '../colors';
+import colors from '../helpers/colors';
 import notAvatar from '../images/notAvatar.png';
 
 const ChatsPage = (props) => {
@@ -56,7 +56,7 @@ const ChatsPage = (props) => {
 
                 }}
               >
-                <Media
+                {me._id === i.creator._id ? <Media
                   alt="interlocutorAvatar"
                   style={{
                     width: '45px',
@@ -65,15 +65,24 @@ const ChatsPage = (props) => {
                     margin: '0 0 10px 4px',
                     float: 'left',
                   }}
-                  src={me._id === i.creator._id
-                    ? i.interlocutor.profile.avatar === null
-                      ? notAvatar
-                      : i.interlocutor.profile.avatar
-                    : i.creator.profile.avatar === null
+                  src={i.interlocutor.profile.avatar === null
+                    ? notAvatar
+                    : i.interlocutor.profile.avatar}
+                />
+                  : <Media
+                    alt="interlocutorAvatar"
+                    style={{
+                      width: '45px',
+                      height: '45px',
+                      borderRadius: ' 50%',
+                      margin: '0 0 10px 4px',
+                      float: 'left',
+                    }}
+                    src={i.creator.profile.avatar === null
                       ? notAvatar
                       : i.creator.profile.avatar}
 
-                />
+                  />}
                 <h7 style={{ margin: '0 0 10px 4px', float: 'left' }}>
                   {i.product && i.product.title
                     ? i.product.title

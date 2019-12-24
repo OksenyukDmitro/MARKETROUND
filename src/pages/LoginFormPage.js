@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 import useLoginForm from '../hooks/useLoginForm';
 import routes from '../router/routes';
 import logo from '../images/3.png';
-import validationSchema from '../validationSchema';
+import validationSchema from '../helpers/validationSchema';
 
 
 const LoginForm = (props) => {

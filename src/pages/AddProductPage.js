@@ -6,10 +6,10 @@ import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import useAddProductForm from '../hooks/useAddProductForm';
-import category from '../category';
+import category from '../helpers/category';
 import routes from '../router/routes';
 import ImageUpload from '../components/ImageUpload';
-import validationSchema from '../validationSchema';
+import validationSchema from '../helpers/validationSchema';
 
 const AddProductPage = (props) => {
   const { history } = props;
@@ -25,7 +25,7 @@ const AddProductPage = (props) => {
       title: '',
       location: '',
       description: '',
-      categoryName: '',
+      categoryName: 'Everything Else',
       price: 0,
     },
     validationSchema: Yup.object({
@@ -115,12 +115,15 @@ const AddProductPage = (props) => {
           <Label style={{ marginBottom: '0px', marginTop: '5px' }} for="description">Description</Label>
           <Input
             id="description"
-            type="text"
+            type="textarea"
             name="description"
             placeholder="description"
             value={description}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            style={{
+              maxHeight: '300px',
+            }}
           />
           <Alert
             className=" font-weight-normal"
@@ -167,7 +170,7 @@ const AddProductPage = (props) => {
             {formik.errors.price}
           </Alert>
           <Label style={{ marginBottom: '0px', marginTop: '5px' }}>Images</Label>
-          <Label style={{ marginBottom: '0px', marginTop: '5px', color: 'grey' }}>- max 5 images</Label>
+          <Label style={{ marginBottom: '0px', marginTop: '5px', color: 'grey' }}>- Optional - max 5 images</Label>
           <ImageUpload photos={photos} onChange={handleChangeImages} />
           {uploadingImage ? <Spinner /> : null}
           <Button

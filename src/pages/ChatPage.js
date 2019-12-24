@@ -9,9 +9,11 @@ import {
   CellMeasurer,
   CellMeasurerCache,
 } from 'react-virtualized';
+import { Link } from 'react-router-dom';
 import useMessages from '../hooks/useMessages';
 import useMe from '../hooks/useMe';
 import notAvatar from '../images/notAvatar.png';
+import routes from '../router/routes';
 
 
 const cache = new CellMeasurerCache({
@@ -31,7 +33,7 @@ const Chat = ({ match }) => {
     interlocutor,
     creator,
   } = chat;
-  const localInterlocutor = me._id === interlocutor._id ? creator : interlocutor;
+  const currentInterlocutor = me._id === interlocutor._id ? creator : interlocutor;
 
   return (
     <div style={{
@@ -43,56 +45,60 @@ const Chat = ({ match }) => {
     >
 
 
-      {localInterlocutor ? (
-        <div style={{
-          height: '62px',
-          width: '100%',
-          borderBottom: '1px solid cornflowerblue',
-        }}
-        >
+      {currentInterlocutor ? (
+        <Link to={`${routes.profile}/${currentInterlocutor.username}`}>
           <div style={{
-            width: '50px',
-            float: 'left',
+            height: '62px',
+            width: '100%',
+            borderBottom: '1px solid cornflowerblue',
           }}
           >
-            <Media
-              alt="interlocutorAvatar"
-              style={{
-                position: 'relative',
-                marginTop: '5px',
-                padding: '0px',
-                width: '45px',
-                height: '45px',
-                borderRadius: ' 50%',
-                border: '2.7px solid #349a89',
-                textAalign: 'center',
-                fontFamily: 'Helvetica',
-                fontSize: '14px',
-                lineHeight: '40px',
-                maxWidth: '65px',
-                overflow: 'hidden',
+            <div style={{
+              width: '50px',
+              float: 'left',
+            }}
+            >
+              <Media
+                alt="interlocutorAvatar"
+                style={{
+                  position: 'relative',
+                  marginTop: '5px',
+                  padding: '0px',
+                  width: '45px',
+                  height: '45px',
+                  borderRadius: ' 50%',
+                  border: '2.7px solid #349a89',
+                  textAalign: 'center',
+                  fontFamily: 'Helvetica',
+                  fontSize: '14px',
+                  lineHeight: '40px',
+                  maxWidth: '65px',
+                  overflow: 'hidden',
 
-              }}
-              src={
-                localInterlocutor.profile.avatar === null
-                  ? notAvatar
-                  : localInterlocutor.profile.avatar
-              }
-            />
+                }}
+                src={
+                  currentInterlocutor.profile.avatar === null
+                    ? notAvatar
+                    : currentInterlocutor.profile.avatar
+                }
+              />
+            </div>
+            <p style={{
+              float: 'left',
+              marginLeft: '16px',
+              marginTop: '19px',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              maxWidth: '50%',
+              color: 'black',
+            }}
+            >{`${currentInterlocutor.profile.firstName} ${currentInterlocutor.profile.lastName}`}
+            </p>
           </div>
-          <p style={{
-            float: 'left',
-            marginLeft: '16px',
-            marginTop: '19px',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            maxWidth: '50%',
-          }}
-          >{`${localInterlocutor.profile.firstName} ${localInterlocutor.profile.lastName}`}
-          </p>
-        </div>
-      ) : null}
+        </Link>
+      )
+        : null}
 
       <div />
 
@@ -132,11 +138,13 @@ const Chat = ({ match }) => {
           style={{
             flexGrow: 2,
             border: 'none',
+            resize: 'none',
           }}
-          type="text"
+          type="textarea"
           value={body}
           onChange={(e) => setBody(e.target.value)}
           placeholder="Type your message her"
+
         />
         <Button
           style={{
@@ -147,6 +155,7 @@ const Chat = ({ match }) => {
           }}
           onClick={() => addMessage()}
           type="button"
+          disabled={body.trim() === ''}
         >
           SEND
         </Button>

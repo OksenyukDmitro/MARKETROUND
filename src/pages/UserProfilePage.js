@@ -7,7 +7,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import routes from '../router/routes';
 import useUserForm from '../hooks/useUserForm';
-import validationSchema from '../validationSchema';
+import validationSchema from '../helpers/validationSchema';
 import emptyAvatar from '../images/emptyAvatar.png';
 
 

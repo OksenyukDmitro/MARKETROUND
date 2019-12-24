@@ -16,7 +16,7 @@ import useMe from '../hooks/useMe';
 import useWishHandlers from '../hooks/useWishHandlers';
 import useProductHandlers from '../hooks/useProductHandlers';
 import WishModel from '../modules/wish';
-import enumStatus from '../status';
+import enumStatus from '../helpers/status';
 
 const ProductPage = (props) => {
   const { match: { params: { _id } }, history, location } = props;
@@ -124,7 +124,7 @@ const ProductPage = (props) => {
       }}
       >
         <CardBody className="mt-2 ml-2 pb-2 pl-2 pt-2" style={{ paddingRight: '0px', maxWidth: '300px' }}>
-          <h5>Price : {price}</h5>
+          <h5>Price : {price} $</h5>
           <Button
             disabled={status === 'CLOSED'}
             onClick={me ? () => handleCreateChat(_id, me._id, ownerId) : openLoginPage}
@@ -158,7 +158,7 @@ const ProductPage = (props) => {
 
             </Input>
             <Button
-              onClick={() => updateProduct(_id, localStatus)}
+              onClick={() => updateProduct(localStatus)}
               color="primary"
               style={{ width: '100%' }}
             >

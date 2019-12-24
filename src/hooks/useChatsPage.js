@@ -61,7 +61,6 @@ const useChatsPage = () => {
       });
     }
   }, []);
-  console.log(data);
   return [data ? data.chats : [], openChat, loading];
 };
 
