@@ -21,6 +21,7 @@ export const MESSAGES_QUERY = gql`
     unreadMessagesCount
     lastMessage{
       body
+      createdAt
     }
     interlocutor{
       username

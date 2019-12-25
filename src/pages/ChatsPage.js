@@ -115,7 +115,7 @@ const ChatsPage = (props) => {
               >
                 {i.lastMessage && i.lastMessage.body
                   ? i.lastMessage.body
-                  : ' i.lastMessage.body'}
+                  : 'No messages'}
               </p>
             </Button>
           ))}

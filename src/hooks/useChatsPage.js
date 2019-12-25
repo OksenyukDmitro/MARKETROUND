@@ -24,6 +24,7 @@ export const CHATS_QUERY = gql`
     unreadMessagesCount
     lastMessage{
       body
+      createdAt
     }
     interlocutor{
       username
@@ -49,7 +50,9 @@ export const CHATS_QUERY = gql`
 
 
 const useChatsPage = () => {
-  const { loading, data } = useQuery(CHATS_QUERY);
+  const { loading, data } = useQuery(CHATS_QUERY, {
+    fetchPolicy: 'cache-and-network',
+  });
 
 
   const openChat = useCallback(async ({ chatId, match, history }) => {

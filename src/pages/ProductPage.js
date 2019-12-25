@@ -104,6 +104,7 @@ const ProductPage = (props) => {
                 overflow: 'hidden',
               }}
               >
+                Description:<br />
                 {` ${description}`}<br />
               </p>
             </CardText>
@@ -184,14 +185,12 @@ const ProductPage = (props) => {
           to={me && me._id === ownerId ? `${routes.profile}` : `${routes.profile}/${ownerUsername}`}
           className="mt-2 ml-2"
         >
-
           <Card style={{
             marginLeft: '6px',
             width: '99%',
             maxWidth: '500px',
           }}
           >
-
             <CardBody style={{ paddingInline: '2px' }}>
               <Media
                 className="avatar"
